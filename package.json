@@ -17,9 +17,14 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS,",
-      "pre-commit": "npm run lint  && npm run format"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "eslint": "^9.26.0"
@@ -47,6 +52,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.6.2",
+    "stylelint": "^17.4.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-prettier": "^5.0.3",
+    "stylelint-scss": "^7.0.0",
     "turbo": "^2.5.8",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
