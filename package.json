@@ -51,6 +51,8 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "commitizen": "^4.3.1",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^17.6.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
