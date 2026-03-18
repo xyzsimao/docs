@@ -6,14 +6,13 @@
     "commit": "git-cz",
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
-    "lint-staged": "lint-staged",
+    "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
     "prepare": "husky install"
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
+      "path": "node_modules/cz-git"
     }
   },
   "husky": {
@@ -21,29 +20,13 @@
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,vue}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{cjs,json}": [
-      "prettier --write"
-    ],
-    "**/*.{vue,html}": [
-      "eslint --fix",
-      "prettier --write",
-      "stylelint --fix"
-    ],
-    "**/*.{scss,css}": [
-      "stylelint --fix",
-      "prettier --write"
-    ],
-    "**/*.{md,mdx}": [
-      "prettier --write"
-    ]
+  "dependencies": {
+    "eslint": "^9.26.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@eslint/config-inspector": "^1.5.0",
     "@eslint/js": "^9.36.0",
     "@next/eslint-plugin-next": "^15.5.4",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
@@ -51,10 +34,9 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "commitizen": "^4.3.1",
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^17.6.3",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.36.0",
+    "cz-git": "^1.12.0",
+    "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
