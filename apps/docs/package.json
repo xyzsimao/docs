@@ -10,14 +10,17 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@workspace/ui": "workspace:*",
+    "xyzdocs-core": "workspace:*",
+    "xyzdocs-mdx": "workspace:*",
+    "@xyzdocs/ui": "workspace:*",
     "next": "16.1.7",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@xyzdocs/eslint-config": "workspace:*",
+    "@xyzdocs/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,5 +1,5 @@
 {
-  "name": "xyz",
+  "name": "xyzdocs",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,8 +7,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\"",
-    "prepare": "husky"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\""
   },
   "config": {
     "commitizen": {
@@ -40,8 +39,8 @@
     "@next/eslint-plugin-next": "^15.5.4",
     "@typescript-eslint/eslint-plugin": "^8.44.1",
     "@typescript-eslint/parser": "^8.44.1",
-    "@workspace/eslint-config": "workspace:*",
-    "@workspace/typescript-config": "workspace:*",
+    "@xyzdocs/eslint-config": "workspace:*",
+    "@xyzdocs/typescript-config": "workspace:*",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "cz-git": "^1.12.0",
@@ -61,6 +60,7 @@
     "stylelint-prettier": "^5.0.3",
     "stylelint-scss": "^7.0.0",
     "turbo": "^2.5.8",
+    "tsdown": "^0.21.4",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
   },

@@ -1,17 +1,35 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+
+  "ui": "stream",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [
+        ".output",
+        "public/registry",
+        "public/r",
+        ".contentlayer/**",
+        ".source/**",
+        "!.contentlayer/.cache/**",
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**",
+        "out",
+        "build",
+        ".vercel"
+      ]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
+    "lint": {},
+    "types:check": {
+      "dependsOn": [],
+      "outputs": []
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "clean": {
+      "cache": false
+    },
+    "start": {
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false,

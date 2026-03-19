@@ -1,0 +1,161 @@
+import { fileURLToPath } from 'node:url'
+import * as path from 'node:path'
+import { expect, test } from 'vitest'
+import { z } from 'zod'
+import { ValidationError } from '@/utils/validation'
+import { defineCollections, defineConfig } from '@/config'
+import { xyzMatter } from '@/utils/xyz-matter'
+import { buildConfig } from '@/config/build'
+import { createCore } from '@/core'
+import indexFile from '@/plugins/index-file'
+import lastModified from '@/plugins/last-modified'
+
+test('format errors', async () => {
+  const schema = z.object({
+    text: z.string(),
+    obj: z.object({
+      key: z.number(),
+      value: z.number(),
+    }),
+    value: z.string().max(4),
+  })
+
+  const result = await schema['~standard'].validate({
+    text: 4,
+    obj: {
+      value: 'string',
+    },
+    value: 'asfdfsdfsdfsd',
+  })
+
+  if (result.issues) {
+    const error = new ValidationError('in index.mdx:', result.issues)
+
+    expect(error.toString()).toMatchInlineSnapshot(`
+      "Error: in index.mdx::
+        text: Invalid input: expected string, received number
+        obj,key: Invalid input: expected number, received undefined
+        obj,value: Invalid input: expected number, received string
+        value: Too big: expected string to have <=4 characters"
+    `)
+  }
+})
+
+test('parse frontmatter', () => {
+  expect(
+    xyzMatter(
+      '---\ntitle: hello world\ndescription: I love xyzdocs\n---\nwow looks cool.'
+    )
+  ).toMatchInlineSnapshot(`
+    {
+      "content": "wow looks cool.",
+      "data": {
+        "description": "I love xyzdocs",
+        "title": "hello world",
+      },
+      "matter": "---
+    title: hello world
+    description: I love xyzdocs
+    ---
+    ",
+    }
+  `)
+
+  expect(
+    xyzMatter(
+      '---\r\ntitle: hello world\r\ndescription: I love xyzdocs\r\n---\r\nwow looks cool.'
+    )
+  ).toMatchInlineSnapshot(`
+    {
+      "content": "wow looks cool.",
+      "data": {
+        "description": "I love xyzdocs",
+        "title": "hello world",
+      },
+      "matter": "---
+    title: hello world
+    description: I love xyzdocs
+    ---
+    ",
+    }
+  `)
+
+expect(xyzMatter('--- \ntitle: hello world\r\n---\r\nwow looks cool.'))
+    .toMatchInlineSnapshot(`
+      {
+        "content": "--- 
+      title: hello world
+      ---
+      wow looks cool.",
+        "data": {},
+        "matter": "",
+      }
+    `)
+})
+
+const baseDir = path.dirname(fileURLToPath(import.meta.url))
+const cases: {
+  name: string
+  config: Record<string, unknown>
+}[] = [
+    {
+    name: 'sync',
+    config: {
+      docs: defineCollections({
+        type: 'doc',
+        dir: path.join(baseDir, './fixtures/generate-index'),
+      }),
+      blogs: defineCollections({
+        type: 'doc',
+        dir: path.join(baseDir, './fixtures/generate-index'),
+        postprocess: {
+          extractLinkReferences: true,
+        },
+      }),
+      default: defineConfig({
+        plugins: [
+          lastModified({
+            versionControl: async () => new Date('2025-11-18'),
+          }),
+        ],
+      }),
+    },
+  },
+]
+
+for (const { name, config } of cases) {
+  test(`generate JS index file: ${name}`, async () => {
+    const core = createCore({
+      configPath: path.relative(
+        process.cwd(),
+        path.join(baseDir, './fixtures/config.ts')
+      ),
+      environment: 'test',
+      outDir: path.relative(process.cwd(), path.join(baseDir, './fixtures')),
+      plugins: [indexFile()],
+    })
+    console.log('config', config)
+    await core.init({
+      config: buildConfig(config),
+    })
+
+    const { entries, workspaces } = await core.emit()
+    for (const [name, workspace] of Object.entries(workspaces)) {
+      for (const item of workspace) {
+        item.path = path.join(name, item.path)
+        entries.push(item)
+      }
+    }
+
+    console.log(entries.map((e) => e.path))
+    const markdown = entries
+      .map(
+        (entry) => `\`\`\`ts title="${entry.path}"\n${entry.content}\n\`\`\``
+      )
+      .join('\n\n')
+
+    await expect(markdown).toMatchFileSnapshot(
+      `./fixtures/index-${name}.output.md`
+    )
+  })
+}
