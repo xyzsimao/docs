@@ -1,5 +1,5 @@
 {
-  "name": "@xyzdocs/xyzdocs-ui",
+  "name": "xyzdocs-ui",
   "type": "module",
   "version": "0.0.0",
   "description": "A starter for creating a TypeScript package.",
@@ -14,8 +14,24 @@
     "url": "https://github.com/author/library/issues"
   },
   "exports": {
-    ".": "./dist/index.mjs",
-    "./package.json": "./package.json"
+    "./style.css": "./dist/style.css",
+    "./css/*": "./css/*",
+    "./provider/*": {
+      "types": "./dist/provider/*.d.ts",
+      "import": "./dist/provider/*.js"
+    },
+    "./layouts/home": {
+      "types": "./dist/layouts/home/index.d.ts",
+      "import": "./dist/layouts/home/index.js"
+    },
+    "./layouts/home/navbar": {
+      "types": "./dist/layouts/home/navbar.d.ts",
+      "import": "./dist/layouts/home/navbar.js"
+    },
+    "./layouts/shared": {
+      "types": "./dist/layouts/shared/index.d.ts",
+      "import": "./dist/layouts/shared/index.js"
+    }
   },
   "files": [
     "dist"
@@ -28,12 +44,52 @@
     "release": "bumpp",
     "prepublishOnly": "pnpm run build"
   },
+  "dependencies": {
+    "@xyzdocs/ui": "workspace:*",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-direction": "^1.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-presence": "^1.1.5",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.563.0",
+    "next-themes": "^0.4.6",
+    "react-medium-image-zoom": "^5.4.0",
+    "scroll-into-view-if-needed": "^3.1.0"
+  },
   "devDependencies": {
-    "@types/node": "^25.5.0",
-    "@typescript/native-preview": "7.0.0-dev.20260316.1",
-    "bumpp": "^11.0.1",
-    "tsdown": "^0.21.3",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.0"
+    "@tailwindcss/cli": "^4.1.18",
+    "@types/node": "^25.1.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "eslint-config": "workspace:*",
+    "typescript-config": "workspace:*",
+    "xyzdocs-core": "workspace:*",
+    "tailwindcss": "^4.1.18",
+    "tsdown": "^0.19.0"
+  },
+  "peerDependencies": {
+    "@types/react": "*",
+    "xyzdocs-core": "workspace:*",
+    "next": "16.1.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "@types/react": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    }
   }
 }

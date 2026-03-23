@@ -1,0 +1,8 @@
+@import '@xyzdocs/ui/css/base.css';
+/* TODO: remove them on next major */
+ 
+@import './layouts/home.css';
+
+@source '../dist/*.js';
+@source '../dist/{components,contexts,provider,utils}/**/*.js';
+@source '../dist/layouts/**/*/*.js';

@@ -7,8 +7,10 @@ import type {
 } from 'next/dist/server/config-shared'
 import * as path from 'node:path'
 import { loadConfig } from '@/config/load-from-file'
-import { _Defaults,type Core, createCore } from "@/core"
-import indexFile, { IndexFilePluginOptions } from "@/plugins/index-file"
+import { _Defaults, type Core, createCore } from '@/core'
+import { mdxLoaderGlob, metaLoaderGlob } from '@/loaders'
+import type { IndexFilePluginOptions } from '@/plugins/index-file'
+import indexFile from '@/plugins/index-file'
 
 export interface CreateMDXOptions {
   /**
@@ -85,39 +87,39 @@ export function createMDX(createOptions: CreateMDXOptions = {}) {
       ...nextConfig,
       turbopack,
       pageExtensions: nextConfig.pageExtensions ?? defaultPageExtensions,
-      // webpack: (config: Configuration, options) => {
-      //   config.resolve ||= {}
+      webpack: (config: Configuration, options) => {
+        config.resolve ||= {}
 
-      //   config.module ||= {}
-      //   config.module.rules ||= []
+        config.module ||= {}
+        config.module.rules ||= []
 
-      //   config.module.rules.push(
-      //     {
-      //       test: mdxLoaderGlob,
-      //       use: [
-      //         options.defaultLoaders.babel,
-      //         {
-      //           loader: 'xyzdocs-mdx/loader-mdx',
-      //           options: loaderOptions,
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       test: metaLoaderGlob,
-      //       enforce: 'pre',
-      //       use: [
-      //         {
-      //           loader: 'xyzdocs-mdx/loader-meta',
-      //           options: loaderOptions,
-      //         },
-      //       ],
-      //     }
-      //   )
+        config.module.rules.push(
+          {
+            test: mdxLoaderGlob,
+            use: [
+              options.defaultLoaders.babel,
+              {
+                loader: 'xyzdocs-mdx/loader-mdx',
+                options: loaderOptions,
+              },
+            ],
+          },
+          {
+            test: metaLoaderGlob,
+            enforce: 'pre',
+            use: [
+              {
+                loader: 'xyzdocs-mdx/loader-meta',
+                options: loaderOptions,
+              },
+            ],
+          }
+        )
 
-      //   config.plugins ||= []
+        config.plugins ||= []
 
-      //   return nextConfig.webpack?.(config, options) ?? config
-      // },
+        return nextConfig.webpack?.(config, options) ?? config
+      },
     }
   }
 }
@@ -180,6 +182,14 @@ async function init(dev: boolean, core: Core): Promise<void> {
   if (dev) {
     await devServer()
   }
+}
+
+export async function postInstall(options: CreateMDXOptions) {
+  const core = createNextCore(applyDefaults(options))
+  await core.init({
+    config: loadConfig(core, true),
+  })
+  await core.emit({ write: true })
 }
 
 function applyDefaults(options: CreateMDXOptions): Required<CreateMDXOptions> {

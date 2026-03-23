@@ -22,4 +22,4 @@ export const docs = defineDocs({
       method: z.string().optional(),
     }),
   },
-})
+});

@@ -19,7 +19,15 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "@/*": [
+        "./*"
+      ],
+      "xyzdocs-mdx:collections/*": [
+        "./.source/*"
+      ]
     }
   },
   "include": [

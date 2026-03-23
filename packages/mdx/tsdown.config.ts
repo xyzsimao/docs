@@ -10,12 +10,12 @@ const noExternal = [
 export default defineConfig([
   {
     entry: [
-      // './src/{index,bin}.ts',
+      './src/{index,bin}.ts',
       './src/{config,next}/index.ts',
-      // './src/webpack/{mdx,meta}.ts',
-      // './src/node/loader.ts',
-      // './src/runtime/*.{ts,tsx}',
-      // './src/plugins/*.ts',
+      './src/webpack/{mdx,meta}.ts',
+      './src/node/loader.ts',
+      './src/runtime/*.{ts,tsx}',
+      './src/plugins/*.ts',
     ],
     format: 'esm',
     noExternal,
@@ -36,4 +36,4 @@ export default defineConfig([
     fixedExtension: false,
     target: 'node22',
   },
-])
+]);

@@ -14,6 +14,14 @@
     "url": "https://github.com/author/library/issues"
   },
   "exports": {
+    "./link": {
+      "types": "./dist/link.d.ts",
+      "import": "./dist/link.js"
+    },
+    "./dynamic-link": {
+      "types": "./dist/dynamic-link.d.ts",
+      "import": "./dist/dynamic-link.js"
+    },
     "./mdx-plugins": {
       "types": "./dist/mdx-plugins/index.d.ts",
       "import": "./dist/mdx-plugins/index.js"
@@ -22,14 +30,22 @@
       "types": "./dist/mdx-plugins/*.d.ts",
       "import": "./dist/mdx-plugins/*.js"
     },
+    "./framework": {
+      "types": "./dist/framework/index.d.ts",
+      "import": "./dist/framework/index.js"
+    },
+    "./framework/*": {
+      "types": "./dist/framework/*.d.ts",
+      "import": "./dist/framework/*.js"
+    },
     "./toc": {
       "types": "./dist/toc.d.ts",
       "import": "./dist/toc.js"
-    },   
+    },
     "./source/*": {
       "types": "./dist/source/plugins/*.d.ts",
       "import": "./dist/source/plugins/*.js"
-    },      
+    },
     "./source": {
       "types": "./dist/source/index.d.ts",
       "import": "./dist/source/index.js"
@@ -88,6 +104,7 @@
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "algoliasearch": "5.47.0",
+    "eslint-config": "workspace:*",
     "lucide-react": "^0.563.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "mdast-util-mdxjs-esm": "^2.0.1",
@@ -96,11 +113,68 @@
     "remark-directive": "^4.0.0",
     "remark-mdx": "^3.1.1",
     "remove-markdown": "^0.6.3",
+    "typescript-config": "workspace:*",
     "tsdown": "^0.19.0",
     "typescript": "^5.9.3",
     "unified": "^11.0.5",
     "vfile": "^6.0.3",
     "waku": "1.0.0-alpha.3",
     "zod": "^4.3.6"
+  },
+  "peerDependencies": {
+    "@mixedbread/sdk": "^0.46.0",
+    "@orama/core": "1.x.x",
+    "@oramacloud/client": "2.x.x",
+    "@tanstack/react-router": "1.x.x",
+    "@types/react": "*",
+    "algoliasearch": "5.x.x",
+    "lucide-react": "*",
+    "next": "16.1.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "7.x.x",
+    "waku": "^0.26.0 || ^0.27.0",
+    "zod": "4.x.x"
+  },
+  "peerDependenciesMeta": {
+    "@mixedbread/sdk": {
+      "optional": true
+    },
+    "@types/react": {
+      "optional": true
+    },
+    "@orama/core": {
+      "optional": true
+    },
+    "@oramacloud/client": {
+      "optional": true
+    },
+    "algoliasearch": {
+      "optional": true
+    },
+    "next": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "react-router": {
+      "optional": true
+    },
+    "waku": {
+      "optional": true
+    },
+    "@tanstack/react-router": {
+      "optional": true
+    },
+    "lucide-react": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   }
 }
