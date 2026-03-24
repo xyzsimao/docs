@@ -91,11 +91,11 @@ export function DocsLayout({
     return [];
   }, [tree, sidebarTabs]);
   const { menuItems } = useLinkItems(props);
-  console.log('menuItems', menuItems);
+
   function sidebar() {
     const { footer, banner, collapsible = true, component, components, ...rest } = sidebarProps;
     if (component) return component;
-  console.log('components', components);
+
     const iconLinks = menuItems.filter((item) => item.type === 'icon');
     const viewport = (
       <SidebarViewport>
@@ -131,13 +131,13 @@ export function DocsLayout({
                 </SidebarCollapseTrigger>
               )}
             </div>
-            {/* {searchToggle.enabled !== false &&
-              (searchToggle.components?.lg ?? <LargeSearchToggle hideIfDisabled />)} */}
+            {searchToggle.enabled !== false &&
+              (searchToggle.components?.lg ?? <LargeSearchToggle hideIfDisabled />)}
             {tabs.length > 0 && tabMode === 'auto' && <SidebarTabsDropdown options={tabs} />}
             {banner}
           </div>
           {viewport}
-          {/* {(i18n || iconLinks.length > 0 || themeSwitch?.enabled !== false || footer) && (
+          {(i18n || iconLinks.length > 0 || themeSwitch?.enabled !== false || footer) && (
             <div className="flex flex-col border-t p-4 pt-2 empty:hidden">
               <div className="flex text-fd-muted-foreground items-center empty:hidden">
                 {i18n && (
@@ -162,9 +162,9 @@ export function DocsLayout({
               </div>
               {footer}
             </div>
-          )} */}
+          )}
         </SidebarContent>
-        {/* <SidebarDrawer>
+        <SidebarDrawer>
           <div className="flex flex-col gap-3 p-4 pb-2">
             <div className="flex text-fd-muted-foreground items-center gap-1.5">
               <div className="flex flex-1">
@@ -210,7 +210,7 @@ export function DocsLayout({
           </div>
           {viewport}
           <div className="flex flex-col border-t p-4 pt-2 empty:hidden">{footer}</div>
-        </SidebarDrawer> */}
+        </SidebarDrawer>
       </>
     );
   }
@@ -250,12 +250,12 @@ export function DocsLayout({
                 </LayoutHeader>
               ))}
             {sidebarEnabled && sidebar()}
-            {/* {tabMode === 'top' && tabs.length > 0 && (
+            {tabMode === 'top' && tabs.length > 0 && (
               <LayoutTabs
                 options={tabs}
                 className="z-10 bg-fd-background border-b px-6 pt-3 xl:px-8 max-md:hidden"
               />
-            )} */}
+            )}
             {children}
           </LayoutBody>
         </Sidebar>

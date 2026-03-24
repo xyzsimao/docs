@@ -2,9 +2,9 @@
 @plugin 'tailwindcss-animate';
 @import "tw-animate-css";
 
+
 @import 'xyzdocs-ui/css/neutral.css';
 @import 'xyzdocs-ui/css/preset.css';
-
 
 :root {
   --background: #ffffff;
@@ -63,16 +63,7 @@
   --color-landing-foreground-200: #a8a866;
 }
 
-.dark {
-  --color-landing-foreground: #e4e2d0;
-  --color-landing-foreground-200: #b7af7e;
 
-  --color-brand: #fff383;
-  --color-brand-secondary: #fc7744;
-  --color-brand-secondary-foreground: #521700;
-  --color-brand-foreground: black;
-  --color-brand-200: #fff7c8;
-}
 
 @layer base {
 }

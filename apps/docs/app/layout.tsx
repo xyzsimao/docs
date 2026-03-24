@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Body } from './layout.client';
-import { RootProvider } from 'xyzdocs-ui/provider/next';
+ import { source } from '@/lib/source'
 import { NextProvider } from 'xyzdocs-core/framework/next';
+import { Provider } from './provider'
+import { TreeContextProvider } from 'xyzdocs-ui/contexts/tree';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,7 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <Body>
-        <NextProvider>{children}</NextProvider>
+        <NextProvider>
+          <TreeContextProvider tree={source.getPageTree()}>
+            <Provider>{children}</Provider>
+          </TreeContextProvider>
+        </NextProvider>
       </Body>
     </html>
   );

@@ -16,17 +16,19 @@
   "exports": {
     "./style.css": "./dist/style.css",
     "./css/*": "./css/*",
-    "./provider/*": {
-      "types": "./dist/provider/*.d.ts",
-      "import": "./dist/provider/*.js"
+    "./image-zoom.css": "./dist/image-zoom.css",
+    "./components/tabs.unstyled": {
+      "types": "./dist/components/ui/tabs.d.ts",
+      "import": "./dist/components/ui/tabs.js"
     },
-    "./layouts/docs": {
-      "types": "./dist/layouts/docs/index.d.ts",
-      "import": "./dist/layouts/docs/index.js"
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.js",
+      "default": "./dist/components/*.js"
     },
-    "./layouts/docs/page": {
-      "types": "./dist/layouts/docs/page/index.d.ts",
-      "import": "./dist/layouts/docs/page/index.js"
+    "./i18n": {
+      "types": "./dist/i18n.d.ts",
+      "import": "./dist/i18n.js"
     },
     "./layouts/home": {
       "types": "./dist/layouts/home/index.d.ts",
@@ -36,9 +38,54 @@
       "types": "./dist/layouts/home/navbar.d.ts",
       "import": "./dist/layouts/home/navbar.js"
     },
+    "./layouts/docs": {
+      "types": "./dist/layouts/docs/index.d.ts",
+      "import": "./dist/layouts/docs/index.js"
+    },
+    "./layouts/docs/page": {
+      "types": "./dist/layouts/docs/page/index.d.ts",
+      "import": "./dist/layouts/docs/page/index.js"
+    },
+    "./layouts/notebook": {
+      "types": "./dist/layouts/notebook/index.d.ts",
+      "import": "./dist/layouts/notebook/index.js"
+    },
+    "./layouts/notebook/page": {
+      "types": "./dist/layouts/notebook/page/index.d.ts",
+      "import": "./dist/layouts/notebook/page/index.js"
+    },
     "./layouts/shared": {
       "types": "./dist/layouts/shared/index.d.ts",
       "import": "./dist/layouts/shared/index.js"
+    },
+    "./page": {
+      "types": "./dist/page.d.ts",
+      "import": "./dist/page.js"
+    },
+    "./provider/*": {
+      "types": "./dist/provider/*.d.ts",
+      "import": "./dist/provider/*.js"
+    },
+    "./contexts/*": {
+      "types": "./dist/contexts/*.d.ts",
+      "import": "./dist/contexts/*.js"
+    },
+    "./mdx": {
+      "types": "./dist/mdx.d.ts",
+      "node": "./dist/mdx.server.js",
+      "import": "./dist/mdx.js"
+    },
+    "./og": {
+      "types": "./dist/og.d.ts",
+      "import": "./dist/og.js"
+    },
+    "./utils/get-sidebar-tabs": {
+      "types": "./dist/components/sidebar/tabs/index.d.ts",
+      "import": "./dist/components/sidebar/tabs/index.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js"
     }
   },
   "files": [
@@ -83,6 +130,7 @@
   },
   "peerDependencies": {
     "@types/react": "*",
+    "@xyzdocs/ui": "workspace:*",
     "xyzdocs-core": "workspace:*",
     "next": "16.1.6",
     "react": "^19.2.0",
