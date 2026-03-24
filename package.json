@@ -6,6 +6,7 @@
     "commit": "git-cz",
     "build": "turbo build",
     "dev": "turbo dev",
+    "clean": "turbo clean",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx}\""
   },

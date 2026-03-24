@@ -2,7 +2,7 @@
 
 import { source } from '@/lib/source'
 import { notFound } from 'next/navigation'
-import { DocsPage } from 'xyzdocs-ui/layouts/docs/page';
+import { DocsBody, DocsPage } from 'xyzdocs-ui/layouts/docs/page';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params
@@ -17,7 +17,10 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       <DocsPage>
         <h1 className="text-[1.75em] font-semibold">{doc.title}</h1>
         <p className="text-lg   mb-2">{doc.description}</p>
-        <MDX> </MDX>
+
+        <DocsBody>
+        <MDX />
+        </DocsBody>
       </DocsPage>
     );
 }

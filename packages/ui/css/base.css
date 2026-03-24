@@ -1,3 +1,6 @@
+@source '../dist/components/**/*.js';
+@plugin '../dist/typography/index.js';
+
 @layer base {
   *,
   ::after,
