@@ -2,6 +2,7 @@
 /* TODO: remove them on next major */
  
 @import './layouts/home.css';
+@import './layouts/docs.css';
 
 @source '../dist/*.js';
 @source '../dist/{components,contexts,provider,utils}/**/*.js';

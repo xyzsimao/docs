@@ -7,6 +7,6 @@ const create = browser<typeof Config, import("xyzdocs-mdx/runtime/types").Intern
   }
 }>();
 const browserCollections = {
-  docs: create.doc("docs", {"test.mdx": () => import("../content/docs/test.mdx?collection=docs"), }),
+  docs: create.doc("docs", {"test.mdx": () => import("../content/docs/test.mdx?collection=docs"), "(framework)/index.mdx": () => import("../content/docs/(framework)/index.mdx?collection=docs"), "cli/create-fumadocs-app.mdx": () => import("../content/docs/cli/create-fumadocs-app.mdx?collection=docs"), "cli/index.mdx": () => import("../content/docs/cli/index.mdx?collection=docs"), "cli/test.mdx": () => import("../content/docs/cli/test.mdx?collection=docs"), "headless/index.mdx": () => import("../content/docs/headless/index.mdx?collection=docs"), "ui/index.mdx": () => import("../content/docs/ui/index.mdx?collection=docs"), }),
 };
 export default browserCollections;

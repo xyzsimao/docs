@@ -20,6 +20,14 @@
       "types": "./dist/provider/*.d.ts",
       "import": "./dist/provider/*.js"
     },
+    "./layouts/docs": {
+      "types": "./dist/layouts/docs/index.d.ts",
+      "import": "./dist/layouts/docs/index.js"
+    },
+    "./layouts/docs/page": {
+      "types": "./dist/layouts/docs/page/index.d.ts",
+      "import": "./dist/layouts/docs/page/index.js"
+    },
     "./layouts/home": {
       "types": "./dist/layouts/home/index.d.ts",
       "import": "./dist/layouts/home/index.js"

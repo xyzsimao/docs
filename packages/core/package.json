@@ -14,6 +14,14 @@
     "url": "https://github.com/author/library/issues"
   },
   "exports": {
+    "./breadcrumb": {
+      "types": "./dist/breadcrumb.d.ts",
+      "import": "./dist/breadcrumb.js"
+    },
+    "./utils/*": {
+      "types": "./dist/utils/*.d.ts",
+      "import": "./dist/utils/*.js"
+    },
     "./link": {
       "types": "./dist/link.d.ts",
       "import": "./dist/link.js"
@@ -53,6 +61,10 @@
     "./source/schema": {
       "types": "./dist/source/schema.d.ts",
       "import": "./dist/source/schema.js"
+    },
+    "./page-tree": {
+      "types": "./dist/page-tree/index.d.ts",
+      "import": "./dist/page-tree/index.js"
     }
   },
   "main": "./dist/index.mjs",
