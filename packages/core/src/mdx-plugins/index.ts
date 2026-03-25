@@ -5,7 +5,7 @@ export * from './remark-structure'
 export * from './remark-heading'
 // export * from './remark-admonition'
 // export * from './remark-directive-admonition'
-// export * from './rehype-toc'
+export * from './rehype-toc';
 // export * from './remark-code-tab'
 // export * from './remark-steps'
 // export * from './remark-npm'

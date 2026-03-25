@@ -44,6 +44,8 @@ export function remarkHeading({
   generateToc = true,
 }: RemarkHeadingOptions = {}): Transformer<Root, Root> {
   return (root, file) => {
+
+    console.log('remarkHeading options', { customId, generateToc });
     const toc: TOCItemType[] = []
     slugger.reset()
 

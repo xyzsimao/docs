@@ -1,17 +1,3 @@
 @source '../dist/components/**/*.js';
 @plugin '../dist/typography/index.js';
 
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-fd-border, currentColor);
-  }
-
-  body {
-    background-color: var(--color-fd-background);
-    color: var(--color-fd-foreground);
-  }
-}

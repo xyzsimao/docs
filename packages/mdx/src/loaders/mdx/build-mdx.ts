@@ -89,7 +89,7 @@ export async function buildMDX(
   const mdxOptions = await core
     .getConfig()
     .getMDXOptions(collection, environment)
-
+  console.log('buildMDX mdxOptions', { collection: collection?.name, environment, mdxOptions });
   function getProcessor(format: 'md' | 'mdx') {
     const cache = core.cache as Map<string, Processor>
     const key = `build-mdx:${collection?.name ?? 'global'}:${format}`

@@ -6,7 +6,6 @@ import {
   LoaderPlugin,
 } from 'xyzdocs-core/source'
  
-import { toxyzdocsSource } from 'xyzdocs-mdx/runtime/server'
 
 import { lucideIconsPlugin } from 'xyzdocs-core/source/lucide-icons';
 // console.log(docs)

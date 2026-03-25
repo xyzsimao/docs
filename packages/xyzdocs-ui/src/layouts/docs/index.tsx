@@ -131,8 +131,7 @@ export function DocsLayout({
                 </SidebarCollapseTrigger>
               )}
             </div>
-            {searchToggle.enabled !== false &&
-              (searchToggle.components?.lg ?? <LargeSearchToggle hideIfDisabled />)}
+            {searchToggle.enabled !== false && (searchToggle.components?.lg ?? <LargeSearchToggle hideIfDisabled />)}
             {tabs.length > 0 && tabMode === 'auto' && <SidebarTabsDropdown options={tabs} />}
             {banner}
           </div>
@@ -156,9 +155,7 @@ export function DocsLayout({
                   </LinkItem>
                 ))}
                 {themeSwitch.enabled !== false &&
-                  (themeSwitch.component ?? (
-                    <ThemeToggle className="ms-auto p-0" mode={themeSwitch.mode} />
-                  ))}
+                  (themeSwitch.component ?? <ThemeToggle className="ms-auto p-0" mode={themeSwitch.mode} />)}
               </div>
               {footer}
             </div>
@@ -208,7 +205,7 @@ export function DocsLayout({
             {tabs.length > 0 && <SidebarTabsDropdown options={tabs} />}
             {banner}
           </div>
-          {viewport}
+          {/* {viewport} */}
           <div className="flex flex-col border-t p-4 pt-2 empty:hidden">{footer}</div>
         </SidebarDrawer>
       </>

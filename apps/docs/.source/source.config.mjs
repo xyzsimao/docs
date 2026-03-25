@@ -1,10 +1,6 @@
 // source.config.ts
 import { z } from "zod";
-import {
-  defineDocs,
-  metaSchema,
-  frontmatterSchema
-} from "xyzdocs-mdx/config";
+import { defineDocs, metaSchema, frontmatterSchema } from "xyzdocs-mdx/config";
 var docs = defineDocs({
   dir: "content/docs",
   meta: {
@@ -21,6 +17,17 @@ var docs = defineDocs({
        */
       method: z.string().optional()
     })
+    // mdxOptions: applyMdxPreset({
+    //   // rehypeCodeOptions: {
+    //   //   // options
+    //   // },
+    //   // remarkImageOptions: {
+    //   //   // options
+    //   // },
+    //   remarkHeadingOptions: {
+    //     // options
+    //   },
+    // }),
   }
 });
 export {

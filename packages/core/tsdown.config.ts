@@ -11,7 +11,7 @@ export default defineConfig({
     'src/{toc,link,breadcrumb,dynamic-link}.tsx',
     'src/page-tree/index.ts',
     // 'src/{negotiation,content}/*',
-    // 'src/content/mdx/preset-*.ts',
+    'src/content/mdx/preset-*.ts',
     'src/source/{index,schema}.ts',
     'src/source/client/*.{ts,tsx}',
     'src/source/plugins/{lucide-icons,slugs,status-badges}.{ts,tsx}',

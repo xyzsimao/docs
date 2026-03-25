@@ -1,5 +1,5 @@
 export * from './define'
-// export * from '@/config/preset'
+export * from '@/config/preset';
 // export { remarkInclude } from '@/loaders/mdx/remark-include'
 
 export type { PostprocessOptions } from '@/loaders/mdx/remark-postprocess'

@@ -1,10 +1,5 @@
 import { z } from 'zod'
-import {
-  defineDocs,
-  metaSchema,
-  frontmatterSchema,
-} from 'xyzdocs-mdx/config'
-
+import { applyMdxPreset, defineDocs, metaSchema, frontmatterSchema } from 'xyzdocs-mdx/config';
 export const docs = defineDocs({
   dir: 'content/docs',
   meta: {
@@ -21,5 +16,16 @@ export const docs = defineDocs({
        */
       method: z.string().optional(),
     }),
+    // mdxOptions: applyMdxPreset({
+    //   // rehypeCodeOptions: {
+    //   //   // options
+    //   // },
+    //   // remarkImageOptions: {
+    //   //   // options
+    //   // },
+    //   remarkHeadingOptions: {
+    //     // options
+    //   },
+    // }),
   },
 });
