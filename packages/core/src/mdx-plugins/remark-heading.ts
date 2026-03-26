@@ -44,33 +44,30 @@ export function remarkHeading({
   generateToc = true,
 }: RemarkHeadingOptions = {}): Transformer<Root, Root> {
   return (root, file) => {
-
-    console.log('remarkHeading options', { customId, generateToc });
-    const toc: TOCItemType[] = []
-    slugger.reset()
+    // console.log('remarkHeading options', { customId, generateToc });
+    const toc: TOCItemType[] = [];
+    slugger.reset();
 
     visit(root, 'heading', (heading) => {
-      heading.data ||= {}
-      heading.data.hProperties ||= {}
-      const props = heading.data.hProperties
+      heading.data ||= {};
+      heading.data.hProperties ||= {};
+      const props = heading.data.hProperties;
 
-      const lastNode = heading.children.at(-1)
+      const lastNode = heading.children.at(-1);
       if (lastNode?.type === 'text' && customId) {
-        const match = regex.exec(lastNode.value)
+        const match = regex.exec(lastNode.value);
 
         if (match?.[1]) {
-          props.id = match[1]
-          lastNode.value = lastNode.value.slice(0, match.index)
+          props.id = match[1];
+          lastNode.value = lastNode.value.slice(0, match.index);
         }
       }
 
-      let flattened: string | null = null
+      let flattened: string | null = null;
       if (!props.id) {
-        flattened ??= flattenNode(heading)
+        flattened ??= flattenNode(heading);
 
-        props.id = defaultSlug
-          ? defaultSlug(root, heading, flattened)
-          : slugger.slug(flattened)
+        props.id = defaultSlug ? defaultSlug(root, heading, flattened) : slugger.slug(flattened);
       }
 
       if (generateToc) {
@@ -78,12 +75,12 @@ export function remarkHeading({
           title: flattened ?? flattenNode(heading),
           url: `#${props.id}`,
           depth: heading.depth,
-        })
+        });
       }
 
-      return 'skip'
-    })
+      return 'skip';
+    });
 
-    if (generateToc) file.data.toc = toc
+    if (generateToc) file.data.toc = toc;
   }
 }

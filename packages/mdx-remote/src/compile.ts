@@ -7,19 +7,16 @@ import type { TableOfContents } from 'xyzdocs-core/toc'
 import { executeMdx, type MdxContent } from '@/render'
 import { pathToFileURL } from 'node:url'
 
-export type xyzdocsPresetOptions = Omit<
-  CompileOptions,
-  'remarkPlugins' | 'rehypePlugins'
-> & {
-  preset?: 'xyzdocs'
-  remarkPlugins?: ResolvePlugins
-  rehypePlugins?: ResolvePlugins
+export type xyzdocsPresetOptions = Omit<CompileOptions, 'remarkPlugins' | 'rehypePlugins'> & {
+  preset?: 'xyzdocs';
+  remarkPlugins?: ResolvePlugins;
+  rehypePlugins?: ResolvePlugins;
 
-  remarkHeadingOptions?: Plugins.RemarkHeadingOptions | false
-  rehypeCodeOptions?: Plugins.RehypeCodeOptions | false
-  rehypeTocOptions?: Plugins.RehypeTocOptions | false
-  remarkCodeTabOptions?: Plugins.RemarkCodeTabOptions | false
-  remarkNpmOptions?: Plugins.RemarkNpmOptions | false
+  remarkHeadingOptions?: Plugins.RemarkHeadingOptions | false;
+  rehypeCodeOptions?: Plugins.RehypeCodeOptions | false;
+  rehypeTocOptions?: Plugins.RehypeTocOptions | false;
+  // remarkCodeTabOptions?: Plugins.RemarkCodeTabOptions | false
+  // remarkNpmOptions?: Plugins.RemarkNpmOptions | false
 
   /**
    * The directory to find image sizes
@@ -27,10 +24,10 @@ export type xyzdocsPresetOptions = Omit<
    * @defaultValue './public'
    * @deprecated Use `remarkImageOptions.publicDir` instead
    */
-  imageDir?: string
+  imageDir?: string;
 
-  remarkImageOptions?: Plugins.RemarkImageOptions | false
-}
+  remarkImageOptions?: Plugins.RemarkImageOptions | false;
+};
 
 export type CompilerOptions =
   | (CompileOptions & { preset: 'minimal' })
@@ -159,23 +156,21 @@ function getCompileOptions({
   remarkImageOptions,
   rehypeTocOptions,
   remarkHeadingOptions,
-  remarkCodeTabOptions,
-  remarkNpmOptions,
+  // remarkCodeTabOptions,
+  // remarkNpmOptions,
   imageDir = './public',
   ...options
 }: xyzdocsPresetOptions = {}): CompileOptions {
-  function getPlugin<K extends keyof typeof Plugins>(
-    name: K
-  ): (typeof Plugins)[K] | null {
-    return name in Plugins ? Plugins[name] : null
+  function getPlugin<K extends keyof typeof Plugins>(name: K): (typeof Plugins)[K] | null {
+    return name in Plugins ? Plugins[name] : null;
   }
-  const remarkGfm = getPlugin('remarkGfm')
-  const remarkHeading = getPlugin('remarkHeading')
-  const remarkCodeTab = getPlugin('remarkCodeTab')
-  const remarkNpm = getPlugin('remarkNpm')
-  const remarkImage = getPlugin('remarkImage')
-  const rehypeCode = getPlugin('rehypeCode')
-  const rehypeToc = getPlugin('rehypeToc')
+  const remarkGfm = getPlugin('remarkGfm');
+  const remarkHeading = getPlugin('remarkHeading');
+  // const remarkCodeTab = getPlugin('remarkCodeTab')
+  // const remarkNpm = getPlugin('remarkNpm')
+  const remarkImage = getPlugin('remarkImage');
+  const rehypeCode = getPlugin('rehypeCode');
+  const rehypeToc = getPlugin('rehypeToc');
 
   return {
     ...options,
@@ -183,9 +178,7 @@ function getCompileOptions({
     remarkPlugins: pluginOption(
       (v) => [
         remarkGfm,
-        remarkHeading && remarkHeadingOptions !== false
-          ? [remarkHeading, remarkHeadingOptions]
-          : null,
+        remarkHeading && remarkHeadingOptions !== false ? [remarkHeading, remarkHeadingOptions] : null,
         remarkImage && remarkImageOptions !== false
           ? [
               remarkImage,
@@ -196,29 +189,25 @@ function getCompileOptions({
               } satisfies Plugins.RemarkImageOptions,
             ]
           : null,
-        remarkCodeTab && remarkCodeTabOptions !== false
-          ? [remarkCodeTab, remarkCodeTabOptions]
-          : null,
-        remarkNpm && remarkNpmOptions !== false
-          ? [remarkNpm, remarkNpmOptions]
-          : null,
+        // remarkCodeTab && remarkCodeTabOptions !== false
+        //   ? [remarkCodeTab, remarkCodeTabOptions]
+        //   : null,
+        // remarkNpm && remarkNpmOptions !== false
+        //   ? [remarkNpm, remarkNpmOptions]
+        //   : null,
         ...v,
       ],
-      options.remarkPlugins
+      options.remarkPlugins,
     ),
     rehypePlugins: pluginOption(
       (v) => [
-        rehypeCode && rehypeCodeOptions !== false
-          ? [rehypeCode, rehypeCodeOptions]
-          : null,
-        rehypeToc && rehypeTocOptions !== false
-          ? [rehypeToc, rehypeTocOptions]
-          : null,
+        // rehypeCode && rehypeCodeOptions !== false ? [rehypeCode, rehypeCodeOptions] : null,
+        rehypeToc && rehypeTocOptions !== false ? [rehypeToc, rehypeTocOptions] : null,
         ...v,
       ],
-      options.rehypePlugins
+      options.rehypePlugins,
     ),
-  }
+  };
 }
 
 // backward compatible

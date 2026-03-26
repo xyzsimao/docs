@@ -1,0 +1,14 @@
+---
+title: markdown 自带组件
+description: markdown 自带组件 demo
+icon: Pen
+---
+
+See [Loader API `source`](/docs/headless/source-api/source) for details.
+
+```ts title="lib/source.ts"
+import { loader } from 'xyzdocs-core/source';
+
+export const source = loader({
+  baseUrl: '/info', // to the new value [!code highlight]
+});

@@ -16,10 +16,10 @@ export type DefaultMDXOptions = Omit<NonNullable<ProcessorOptions>, 'rehypePlugi
 
   remarkStructureOptions?: Plugins.StructureOptions | false;
   remarkHeadingOptions?: Plugins.RemarkHeadingOptions;
-  // remarkImageOptions?: Plugins.RemarkImageOptions | false;
+  remarkImageOptions?: Plugins.RemarkImageOptions | false;
   // remarkCodeTabOptions?: Plugins.RemarkCodeTabOptions | false;
   // remarkNpmOptions?: Plugins.RemarkNpmOptions | false;
-  // rehypeCodeOptions?: Plugins.RehypeCodeOptions | false;
+  rehypeCodeOptions?: Plugins.RehypeCodeOptions | false;
 };
 
 function pluginOption(
@@ -50,20 +50,20 @@ export function applyMdxPreset(
   options: MDXPresetOptions = {}
 ): (environment: BuildEnvironment) => Promise<ProcessorOptions> {
   return async (environment = 'bundler') => {
-    if (options.preset === 'minimal') return options
+    if (options.preset === 'minimal') return options;
 
     const plugins = await import('xyzdocs-core/mdx-plugins');
     const {
       valueToExport = [],
-      // rehypeCodeOptions,
-      // remarkImageOptions,
+      rehypeCodeOptions,
+      remarkImageOptions,
       remarkHeadingOptions,
       remarkStructureOptions,
       // remarkCodeTabOptions,
       // remarkNpmOptions,
       ...mdxOptions
     } = options;
-    console.log('applyMdxPreset options', { remarkHeadingOptions });
+    // console.log('applyMdxPreset options', { remarkHeadingOptions });
     const remarkPlugins = pluginOption(
       (v) => [
         plugins.remarkGfm,
@@ -74,13 +74,13 @@ export function applyMdxPreset(
             ...remarkHeadingOptions,
           },
         ],
-        // remarkImageOptions !== false && [
-        //   plugins.remarkImage,
-        //   {
-        //     ...remarkImageOptions,
-        //     useImport: remarkImageOptions?.useImport ?? environment === 'bundler',
-        //   },
-        // ],
+        remarkImageOptions !== false && [
+          plugins.remarkImage,
+          {
+            ...remarkImageOptions,
+            useImport: remarkImageOptions?.useImport ?? environment === 'bundler',
+          },
+        ],
         // 'remarkCodeTab' in plugins && remarkCodeTabOptions !== false && [plugins.remarkCodeTab, remarkCodeTabOptions],
         // 'remarkNpm' in plugins && remarkNpmOptions !== false && [plugins.remarkNpm, remarkNpmOptions],
         // ...v,
@@ -110,7 +110,10 @@ export function applyMdxPreset(
       mdxOptions.remarkPlugins,
     );
 
-    const rehypePlugins = pluginOption((v) => [...v, plugins.rehypeToc], mdxOptions.rehypePlugins);
+    const rehypePlugins = pluginOption(
+      (v) => [rehypeCodeOptions !== false && [plugins.rehypeCode, rehypeCodeOptions], ...v, plugins.rehypeToc],
+      mdxOptions.rehypePlugins,
+    );
 
     return {
       ...mdxOptions,
@@ -118,5 +121,5 @@ export function applyMdxPreset(
       remarkPlugins,
       rehypePlugins,
     };
-  }
+  };
 }

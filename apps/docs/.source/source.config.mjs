@@ -17,17 +17,6 @@ var docs = defineDocs({
        */
       method: z.string().optional()
     })
-    // mdxOptions: applyMdxPreset({
-    //   // rehypeCodeOptions: {
-    //   //   // options
-    //   // },
-    //   // remarkImageOptions: {
-    //   //   // options
-    //   // },
-    //   remarkHeadingOptions: {
-    //     // options
-    //   },
-    // }),
   }
 });
 export {
