@@ -2,20 +2,17 @@ import type { ProcessorOptions } from '@mdx-js/mdx'
 import type * as Plugins from '@/mdx-plugins'
 import { resolvePlugins, type ResolvePlugins } from '@/content/mdx/util'
 
-export type MDXRuntimePresetOptions = Omit<
-  NonNullable<ProcessorOptions>,
-  'rehypePlugins' | 'remarkPlugins'
-> & {
-  rehypePlugins?: ResolvePlugins
-  remarkPlugins?: ResolvePlugins
+export type MDXRuntimePresetOptions = Omit<NonNullable<ProcessorOptions>, 'rehypePlugins' | 'remarkPlugins'> & {
+  rehypePlugins?: ResolvePlugins;
+  remarkPlugins?: ResolvePlugins;
 
-  remarkStructureOptions?: Plugins.StructureOptions | false
-  remarkHeadingOptions?: Plugins.RemarkHeadingOptions
-  remarkImageOptions?: Plugins.RemarkImageOptions | false
-  remarkCodeTabOptions?: Plugins.RemarkCodeTabOptions | false
-  remarkNpmOptions?: Plugins.RemarkNpmOptions | false
-  rehypeCodeOptions?: Plugins.RehypeCodeOptions | false
-}
+  remarkStructureOptions?: Plugins.StructureOptions | false;
+  remarkHeadingOptions?: Plugins.RemarkHeadingOptions;
+  remarkImageOptions?: Plugins.RemarkImageOptions | false;
+  remarkCodeTabOptions?: Plugins.RemarkCodeTabOptions | false;
+  // remarkNpmOptions?: Plugins.RemarkNpmOptions | false
+  rehypeCodeOptions?: Plugins.RehypeCodeOptions | false;
+};
 
 /**
  * apply MDX processor presets
@@ -45,20 +42,14 @@ export async function mdxPreset(
         },
       ]),
       remarkImageOptions !== false &&
-        import('@/mdx-plugins/remark-image').then((mod) => [
-          mod.remarkImage,
-          remarkImageOptions,
-        ]),
+        import('@/mdx-plugins/remark-image').then((mod) => [mod.remarkImage, remarkImageOptions]),
       remarkCodeTabOptions !== false &&
-        import('@/mdx-plugins/remark-code-tab').then((mod) => [
-          mod.remarkCodeTab,
-          remarkCodeTabOptions,
-        ]),
-      remarkNpmOptions !== false &&
-        import('@/mdx-plugins/remark-npm').then((mod) => [
-          mod.remarkNpm,
-          remarkNpmOptions,
-        ]),
+        import('@/mdx-plugins/remark-code-tab').then((mod) => [mod.remarkCodeTab, remarkCodeTabOptions]),
+      // remarkNpmOptions !== false &&
+      //   import('@/mdx-plugins/remark-npm').then((mod) => [
+      //     mod.remarkNpm,
+      //     remarkNpmOptions,
+      //   ]),
       ...v,
       remarkStructureOptions !== false &&
         import('@/mdx-plugins/remark-structure').then((mod) => [
@@ -69,8 +60,8 @@ export async function mdxPreset(
           } satisfies Plugins.StructureOptions,
         ]),
     ],
-    mdxOptions.remarkPlugins
-  )
+    mdxOptions.remarkPlugins,
+  );
 
   const rehypePlugins = await resolvePlugins(
     (v) => [

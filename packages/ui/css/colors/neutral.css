@@ -1,19 +1,2 @@
 @import './index.css';
 
-#nd-sidebar {
-  background-color: var(--sidebar);
-  color: var(--sidebar-foreground);
-  border-color: var(--sidebar-border);
-
-  --color-fd-accent: var(--sidebar-accent);
-  --color-fd-accent-foreground: var(--sidebar-accent-foreground);
-  --color-fd-ring: var(--sidebar-ring);
-  --color-fd-primary-foreground: var(--sidebar-primary-foreground);
-}
-
-
-.dark #nd-sidebar {
-  --color-fd-muted: hsl(0, 0%, 16%);
-  --color-fd-secondary: hsl(0, 0%, 18%);
-  --color-fd-muted-foreground: hsl(0, 0%, 72%);
-}

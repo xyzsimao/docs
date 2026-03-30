@@ -1,9 +1,11 @@
 
 
+import { Feedback } from '@/components/feedback/client';
+import { onPageFeedbackAction } from '@/lib/github';
 import { source } from '@/lib/source'
 import { getMDXComponents } from '@/mdx-components';
 import { notFound } from 'next/navigation'
-import { DocsBody, DocsPage } from 'xyzdocs-ui/layouts/docs/page';
+import { DocsBody, DocsPage, PageLastUpdate } from 'xyzdocs-ui/layouts/docs/page';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -12,7 +14,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   if (!page) {
     return notFound();
   }
-  const { body: Mdx, toc } = await page.data;
+  const { body: Mdx, toc, lastModified } = await page.data;
   console.log('rendering page toc', toc);
   // const doc = page.data
   // const MDX = doc.body
@@ -32,11 +34,15 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       <h1 className="text-[1.75em] font-semibold">{page.data.title}</h1>
       <p className="text-lg text-fd-muted-foreground mb-2">{page.data.description}</p>
       <DocsBody>
-        <Mdx
-          components={getMDXComponents({
-            components: {},
-          })}
-        />
+        <div className="prose flex-1 text-fd-foreground/90">
+          <Mdx
+            components={getMDXComponents({
+              components: {},
+            })}
+          />
+        </div>
+        <Feedback onSendAction={onPageFeedbackAction} />
+        {lastModified && <PageLastUpdate date={lastModified} />}
       </DocsBody>
     </DocsPage>
   );

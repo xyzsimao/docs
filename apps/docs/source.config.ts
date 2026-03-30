@@ -1,5 +1,7 @@
 import { z } from 'zod'
-import { applyMdxPreset, defineDocs, metaSchema, frontmatterSchema } from 'xyzdocs-mdx/config';
+import { applyMdxPreset, defineDocs, metaSchema, frontmatterSchema, defineConfig } from 'xyzdocs-mdx/config';
+import lastModified from 'xyzdocs-mdx/plugins/last-modified';
+
 export const docs = defineDocs({
   dir: 'content/docs',
   meta: {
@@ -17,4 +19,8 @@ export const docs = defineDocs({
       method: z.string().optional(),
     }),
   },
+});
+
+export default defineConfig({
+  plugins: [lastModified()],
 });

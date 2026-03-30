@@ -4,6 +4,10 @@ description: markdown 自带组件 demo
 icon: Pen
 ---
 
+```package-install
+xyzdocs-core
+```
+
 See [Loader API `source`](/docs/headless/source-api/source) for details.
 
 ```ts title="lib/source.ts"
@@ -12,3 +16,82 @@ import { loader } from 'xyzdocs-core/source';
 export const source = loader({
   baseUrl: '/info', // to the new value [!code highlight]
 });
+```
+
+```ts tab="Next.js" title="app/api/search/route.ts"
+import { source } from '@/lib/source';
+import { createSearchAPI } from 'xyzdocs-core/search/server';
+
+export const { GET } = createSearchAPI('advanced', {
+  language: 'english',
+  indexes: source.getPages().map((page) => ({
+    title: page.data.title,
+    description: page.data.description,
+    url: page.url,
+    id: page.url,
+    structuredData: page.data.structuredData,
+  })),
+});
+```
+
+```ts tab="React Router" title="app/docs/search.ts"
+import type { Route } from './+types/search';
+import { createSearchAPI } from 'xyzdocs-core/search/server';
+import { source } from '@/lib/source';
+
+const server = createSearchAPI('advanced', {
+  language: 'english',
+  indexes: source.getPages().map((page) => ({
+    title: page.data.title,
+    description: page.data.description,
+    url: page.url,
+    id: page.url,
+    structuredData: page.data.structuredData,
+  })),
+});
+
+export async function loader({ request }: Route.LoaderArgs) {
+  return server.GET(request);
+}
+```
+
+```ts tab="Tanstack Start" title="src/routes/api/search.ts"
+import { createFileRoute } from '@tanstack/react-router';
+import { source } from '@/lib/source';
+import { createSearchAPI } from 'xyzdocs-core/search/server';
+
+const server = createSearchAPI('advanced', {
+  language: 'english',
+  indexes: source.getPages().map((page) => ({
+    title: page.data.title,
+    description: page.data.description,
+    url: page.url,
+    id: page.url,
+    structuredData: page.data.structuredData,
+  })),
+});
+
+export const Route = createFileRoute('/api/search')({
+  server: {
+    handlers: {
+      GET: async ({ request }) => server.GET(request),
+    },
+  },
+});
+```
+
+```ts tab="Waku" title="src/pages/api/search.ts"
+import { source } from '@/lib/source';
+import { createSearchAPI } from 'xyzdocs-core/search/server';
+
+export const { GET } = createSearchAPI('advanced', {
+  language: 'english',
+  indexes: source.getPages().map((page) => ({
+    title: page.data.title,
+    description: page.data.description,
+    url: page.url,
+    id: page.url,
+    structuredData: page.data.structuredData,
+  })),
+});
+```
