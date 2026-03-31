@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @plugin 'tailwindcss-animate';
 @import "tw-animate-css";
+@import 'katex/dist/katex.css';
 
-
+@import 'xyzdocs-twoslash/twoslash.css';
 /* @import 'xyzdocs-ui/css/neutral.css'; */
 @import 'xyzdocs-ui/css/preset.css';
 
@@ -192,4 +193,15 @@ body {
 
   --fd-header-height: 0px;
   --fd-toc-popover-height: 0px;
+}
+
+
+@media print {
+  #nd-docs-layout {
+    --fd-sidebar-width: 0px !important;
+  }
+
+  #nd-sidebar {
+    display: none;
+  }
 }

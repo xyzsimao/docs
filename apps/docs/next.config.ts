@@ -3,7 +3,7 @@ import { createMDX } from 'xyzdocs-mdx/next';
 
 /** @type {import('next').NextConfig} */
 const config: NextConfig = {
-  serverExternalPackages: ['better-auth'],
+  serverExternalPackages: ['better-auth', 'typescript', 'twoslash'],
   reactStrictMode: true,
   experimental: { serverMinification: false },
 };

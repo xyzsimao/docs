@@ -6,6 +6,23 @@ import * as icons from 'lucide-react';
 import * as TabsComponents from 'xyzdocs-ui/components/tabs';
 import * as FilesComponents from 'xyzdocs-ui/components/files';
 import { Accordion, Accordions } from 'xyzdocs-ui/components/accordion';
+import { Mermaid } from '@/components/mdx/mermaid';
+import * as Twoslash from 'xyzdocs-twoslash/ui';
+
+// import { Mermaid } from './components/mdx/mermaid';
+// you may use environment variable here
+const isPrinting = false;
+function PrintingAccordion(props: React.ComponentProps<typeof Accordion>) {
+  return (
+    <div>
+      <h3>{props.title}</h3>
+      {props.children}
+    </div>
+  );
+}
+function PrintingAccordions(props: React.ComponentProps<typeof Accordions>) {
+  return <div>{props.children}</div>;
+}
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -13,9 +30,11 @@ export function getMDXComponents(components?: MDXComponents) {
     ...defaultMdxComponents,
     ...TabsComponents,
     ...FilesComponents,
-    Accordion,
-    Accordions,
-    ...components,
+    Accordion: isPrinting ? PrintingAccordion : Accordion,
+    Accordions: isPrinting ? PrintingAccordions : Accordions,
+    // MermaidDiagram,
+    Mermaid,
+    ...Twoslash,
   } satisfies MDXComponents;
 }
 
