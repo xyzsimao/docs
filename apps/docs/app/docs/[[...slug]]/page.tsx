@@ -25,6 +25,8 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
     return notFound();
   }
   const { body: Mdx, toc, lastModified } = await page.data;
+  console.log('page.data:', JSON.stringify(page.data, null, 2));
+  // const { body: Mdx, toc, lastModified } = await page.data.load();
   console.log('rendering page toc', toc);
   // const doc = page.data
   // const MDX = doc.body

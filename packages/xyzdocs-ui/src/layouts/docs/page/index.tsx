@@ -1,36 +1,17 @@
-import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '@xyzdocs/ui/cn';
+'use client';
+import { type ComponentProps, createContext, type FC, type ReactNode, use, useEffect, useState } from 'react';
+import { cn } from '@/utils/cn';
+import { I18nLabel, useI18n } from '@/contexts/i18n';
+import { TOC, TOCPopover, TOCProvider, type TOCProviderProps, type TOCPopoverProps, type TOCProps } from './slots/toc';
+import { Footer, type FooterProps } from './slots/footer';
+import { Breadcrumb, type BreadcrumbProps } from './slots/breadcrumb';
+import { Container } from './slots/container';
+import type { TOCItemType } from 'xyzdocs-core/toc';
 import { buttonVariants } from '@/components/ui/button';
-import { Edit, Text } from 'lucide-react';
-import { I18nLabel } from '@/contexts/i18n';
-import {
-  type BreadcrumbProps,
-  type FooterProps,
-  PageBreadcrumb,
-  PageFooter,
-  PageTOCPopover,
-  PageTOCPopoverContent,
-  PageTOCPopoverTrigger,
-} from './client';
-import type { AnchorProviderProps, TOCItemType } from 'xyzdocs-core/toc';
-import * as TocDefault from '@/components/toc/default';
-import * as TocClerk from '@/components/toc/clerk';
-import { TOCProvider, TOCScrollArea } from '@/components/toc';
+import { Edit } from 'lucide-react';
 
-interface BreadcrumbOptions extends BreadcrumbProps {
-  enabled: boolean;
-  component: ReactNode;
-}
-
-interface FooterOptions extends FooterProps {
-  enabled: boolean;
-  component: ReactNode;
-}
-
-export interface DocsPageProps {
+export interface DocsPageProps extends ComponentProps<'article'> {
   toc?: TOCItemType[];
-  tableOfContent?: Partial<TableOfContentOptions>;
-  tableOfContentPopover?: Partial<TableOfContentPopoverOptions>;
 
   /**
    * Extend the page to fill all available space
@@ -38,121 +19,112 @@ export interface DocsPageProps {
    * @defaultValue false
    */
   full?: boolean;
+  slots?: Partial<DocsPageSlots>;
 
-  /**
-   * Replace or disable breadcrumb
-   */
-  breadcrumb?: Partial<BreadcrumbOptions>;
-
-  /**
-   * Footer navigation, located under the page body.
-   *
-   * You can specify `footer.children` to add extra components under the footer.
-   */
-  footer?: Partial<FooterOptions>;
-
-  children?: ReactNode;
-
-  /**
-   * Apply class names to the `#nd-page` container.
-   */
-  className?: string;
+  footer?: FooterOptions;
+  breadcrumb?: BreadcrumbOptions;
+  tableOfContent?: TableOfContentOptions;
+  tableOfContentPopover?: TableOfContentPopoverOptions;
 }
 
-type TableOfContentOptions = Pick<AnchorProviderProps, 'single'> & {
+interface BreadcrumbOptions extends BreadcrumbProps {
+  enabled?: boolean;
   /**
-   * Custom content in TOC container, before the main TOC
+   * @deprecated use `slots.breadcrumb` instead.
    */
-  header?: ReactNode;
+  component?: ReactNode;
+}
 
+interface FooterOptions extends FooterProps {
+  enabled?: boolean;
   /**
-   * Custom content in TOC container, after the main TOC
+   * @deprecated use `slots.footer` instead.
    */
-  footer?: ReactNode;
+  component?: ReactNode;
+}
 
-  enabled: boolean;
-  component: ReactNode;
-
+interface TableOfContentOptions extends Pick<TOCProviderProps, 'single'>, TOCProps {
+  enabled?: boolean;
   /**
-   * @defaultValue 'normal'
+   * @deprecated use `slots.toc` instead.
    */
-  style?: 'normal' | 'clerk';
-};
+  component?: ReactNode;
+}
 
-type TableOfContentPopoverOptions = Omit<TableOfContentOptions, 'single'>;
+interface TableOfContentPopoverOptions extends TOCPopoverProps {
+  enabled?: boolean;
+  /**
+   * @deprecated use `slots.tocPopover` instead.
+   */
+  component?: ReactNode;
+}
+
+interface DocsPageSlots {
+  toc: {
+    provider: FC<TOCProviderProps>;
+    main: FC<TOCProps>;
+    popover: FC<TOCPopoverProps>;
+  };
+  container: FC<ComponentProps<'article'>>;
+  footer: FC<FooterProps>;
+  breadcrumb: FC<BreadcrumbProps>;
+}
+
+type PageSlotsProps = Pick<DocsPageProps, 'full'>;
+
+const PageContext = createContext<{
+  props: PageSlotsProps;
+  slots: DocsPageSlots;
+} | null>(null);
+
+export function useDocsPage() {
+  const context = use(PageContext);
+  if (!context) throw new Error('Please use page components under <DocsPage /> (`xyzdocs-ui/layouts/docs/page`).');
+  return context;
+}
 
 export function DocsPage({
-  breadcrumb: { enabled: breadcrumbEnabled = true, component: breadcrumb, ...breadcrumbProps } = {},
-  footer: { enabled: footerEnabled, component: footerReplace, ...footerProps } = {},
+  tableOfContent: { enabled: tocEnabled, single, ...tocProps } = {},
+  tableOfContentPopover: { enabled: tocPopoverEnabled, ...tocPopoverProps } = {},
+  breadcrumb: { enabled: breadcrumbEnabled = true, ...breadcrumb } = {},
+  footer: { enabled: footerEnabled = true, ...footer } = {},
   full = false,
-  tableOfContentPopover: { enabled: tocPopoverEnabled, component: tocPopover, ...tocPopoverOptions } = {},
-  tableOfContent: { enabled: tocEnabled, component: tocReplace, ...tocOptions } = {},
   toc = [],
+  slots: defaultSlots = {},
   children,
-  className,
+  ...containerProps
 }: DocsPageProps) {
-  // disable TOC on full mode, you can still enable it with `enabled` option.
-  tocEnabled ??= !full && (toc.length > 0 || tocOptions.footer !== undefined || tocOptions.header !== undefined);
+  tocEnabled ??= Boolean(!full && (toc.length > 0 || tocProps.footer || tocProps.header));
+  tocPopoverEnabled ??= Boolean(toc.length > 0 || tocPopoverProps.header || tocPopoverProps.footer);
 
-  tocPopoverEnabled ??=
-    toc.length > 0 || tocPopoverOptions.header !== undefined || tocPopoverOptions.footer !== undefined;
+  const slots: DocsPageSlots = {
+    breadcrumb: defaultSlots.breadcrumb ?? Breadcrumb,
+    footer: defaultSlots.footer ?? Footer,
+    toc: defaultSlots.toc ?? {
+      provider: TOCProvider,
+      main: TOC,
+      popover: TOCPopover,
+    },
+    container: defaultSlots.container ?? Container,
+  };
 
-  let wrapper = (children: ReactNode) => children;
-
-  if (tocEnabled || tocPopoverEnabled) {
-    wrapper = (children) => (
-      <TOCProvider single={tocOptions.single} toc={toc}>
-        {children}
-      </TOCProvider>
-    );
-  }
-
-  return wrapper(
-    <>
-      {tocPopoverEnabled &&
-        (tocPopover ?? (
-          <PageTOCPopover>
-            <PageTOCPopoverTrigger />
-            <PageTOCPopoverContent>
-              {tocPopoverOptions.header}
-              <TOCScrollArea>
-                {tocPopoverOptions.style === 'clerk' ? <TocClerk.TOCItems /> : <TocDefault.TOCItems />}
-              </TOCScrollArea>
-              {tocPopoverOptions.footer}
-            </PageTOCPopoverContent>
-          </PageTOCPopover>
-        ))}
-      <article
-        id="nd-page"
-        data-full={full}
-        className={cn(
-          'flex flex-col w-full max-w-[900px] mx-auto [grid-area:main] px-4 py-6 gap-4 md:px-6 md:pt-8 xl:px-8 xl:pt-14',
-          full ? 'max-w-[1200px]' : 'xl:layout:[--fd-toc-width:268px]',
-          className,
-        )}
-      >
-        {breadcrumbEnabled && (breadcrumb ?? <PageBreadcrumb {...breadcrumbProps} />)}
-        {children}
-        {footerEnabled !== false && (footerReplace ?? <PageFooter {...footerProps} />)}
-      </article>
-      {tocEnabled &&
-        (tocReplace ?? (
-          <div
-            id="nd-toc"
-            className="sticky bg-fd-card top-(--fd-docs-row-1) h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] flex flex-col [grid-area:toc]   px-4  pt-12 pe-4 pb-2 max-xl:hidden"
-          >
-            {tocOptions.header}
-            <h3 id="toc-title" className="inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground">
-              <Text className="size-4" />
-              <I18nLabel label="toc" />
-            </h3>
-            <TOCScrollArea>
-              {tocOptions.style === 'clerk' ? <TocClerk.TOCItems /> : <TocDefault.TOCItems />}
-            </TOCScrollArea>
-            {tocOptions.footer}
-          </div>
-        ))}
-    </>,
+  return (
+    <PageContext
+      value={{
+        props: { full },
+        slots,
+      }}
+    >
+      <slots.toc.provider single={single} toc={tocEnabled || tocPopoverEnabled ? toc : []}>
+        {tocPopoverEnabled && (tocPopoverProps.component ?? <slots.toc.popover {...tocPopoverProps} />)}
+        <slots.container {...containerProps}>
+          {breadcrumbEnabled && (breadcrumb.component ?? <slots.breadcrumb {...breadcrumb} />)}
+          {children}
+          {footerEnabled && (footer.component ?? <slots.footer {...footer} />)}
+        </slots.container>
+        {tocEnabled && (tocProps.component ?? <slots.toc.main {...tocProps} />)}
+      </slots.toc.provider>
+    </PageContext>
   );
 }
 
@@ -166,8 +138,8 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
         buttonVariants({
           color: 'secondary',
           size: 'sm',
-          className: 'gap-1.5 not-prose',
         }),
+        'gap-1.5 not-prose',
         props.className,
       )}
     >
@@ -211,4 +183,22 @@ export function DocsTitle({ children, className, ...props }: ComponentProps<'h1'
   );
 }
 
-export { PageLastUpdate, PageBreadcrumb } from './client';
+export function PageLastUpdate({ date: value, ...props }: Omit<ComponentProps<'p'>, 'children'> & { date: Date }) {
+  const { text } = useI18n();
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    // to the timezone of client
+    setDate(value.toLocaleDateString());
+  }, [value]);
+
+  return (
+    <p {...props} className={cn('text-sm text-fd-muted-foreground', props.className)}>
+      {text.lastUpdate} {date}
+    </p>
+  );
+}
+
+export { type BreadcrumbProps, Breadcrumb as PageBreadcrumb } from './slots/breadcrumb';
+export { type FooterProps, Footer as PageFooter } from './slots/footer';
+export { MarkdownCopyButton, ViewOptionsPopover } from '@/layouts/shared/page-actions';
