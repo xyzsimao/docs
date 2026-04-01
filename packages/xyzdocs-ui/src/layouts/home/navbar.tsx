@@ -1,6 +1,6 @@
 'use client';
-import Link,{ LinkProps }   from 'xyzdocs-core/link';
-import { cn } from '@xyzdocs/ui/cn';
+import Link, { type LinkProps } from 'xyzdocs-core/link';
+import { cn } from '@/utils/cn';
 import {
   NavigationMenuContent,
   type NavigationMenuContentProps,
@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
   type NavigationMenuTriggerProps,
 } from '@/components/ui/navigation-menu';
-import { navItemVariants } from './client';
+import { navItemVariants } from './slots/header';
 
 export const NavbarMenu = NavigationMenuItem;
 
@@ -26,10 +26,7 @@ export function NavbarMenuContent(props: NavigationMenuContentProps) {
 
 export function NavbarMenuTrigger(props: NavigationMenuTriggerProps) {
   return (
-    <NavigationMenuTrigger
-      {...props}
-      className={cn(navItemVariants(), 'rounded-md', props.className)}
-    >
+    <NavigationMenuTrigger {...props} className={cn(navItemVariants(), 'text-sm rounded-md', props.className)}>
       {props.children}
     </NavigationMenuTrigger>
   );

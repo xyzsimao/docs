@@ -6,7 +6,7 @@
 @import 'xyzdocs-twoslash/twoslash.css';
 /* @import 'xyzdocs-ui/css/neutral.css'; */
 @import 'xyzdocs-ui/css/preset.css';
-
+@import 'xyzdocs-ui/css/neutral.css';
 
 :root {
   --background: #ffffff;
