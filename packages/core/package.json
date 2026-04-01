@@ -14,6 +14,14 @@
     "url": "https://github.com/author/library/issues"
   },
   "exports": {
+    "./highlight/core": {
+      "types": "./dist/highlight/core/index.d.ts",
+      "import": "./dist/highlight/core/index.js"
+    },
+    "./highlight/*": {
+      "types": "./dist/highlight/*.d.ts",
+      "import": "./dist/highlight/*.js"
+    },
     "./content": {
       "types": "./dist/content/index.d.ts",
       "import": "./dist/content/index.js"

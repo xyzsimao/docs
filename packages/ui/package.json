@@ -31,7 +31,7 @@
     "access": "public"
   },
   "scripts": {
-    "build:tailwind": "tailwindcss -i css/base.css -o ./dist/base.css ",
+    "build:tailwind": "tailwindcss -i css/test.css -o ./css/test_out.css",
     "build": "tsdown",
     "clean": "rimraf dist",
     "dev": "tsdown --watch",

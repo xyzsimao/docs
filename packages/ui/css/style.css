@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@import './neutral.css';
+@import './preset.css';
+@import './shiki.css';
+@source '../dist/components/**/*.js';
+@plugin '../dist/typography/index.js';
+
+@layer base {
+  body {
+    @apply flex flex-col min-h-screen;
+  }
+}

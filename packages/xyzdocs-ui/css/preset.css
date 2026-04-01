@@ -1,4 +1,6 @@
-@import '@xyzdocs/ui/css/base.css';
+/* @import '@xyzdocs/ui/css/index.css';
+@import '@xyzdocs/ui/css/base.css'; */
+@import '@xyzdocs/ui/css/style.css';
 /* TODO: remove them on next major */
  
 @import './layouts/home.css';

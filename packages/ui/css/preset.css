@@ -1,25 +1,49 @@
-@import './shiki.css';
-@import './index.css';
-@source '../dist/components/**/*.js';
-@plugin '../dist/typography/index.js';
-
-:root {
-  --fd-sidebar-drawer-offset: 100%;
+@theme static {
+  --color-fd-info: oklch(62.3% 0.214 259.815);
+  --color-fd-warning: oklch(76.9% 0.188 70.08);
+  --color-fd-error: oklch(63.7% 0.237 25.331);
+  --color-fd-success: oklch(72.3% 0.219 149.579);
 }
 
 [dir='rtl'] {
-  --fd-sidebar-drawer-offset: -100%;
+  --fd-sidebar-mobile-offset: -100%;
 }
 
 @theme {
+  --fd-sidebar-mobile-offset: 100%;
+  --spacing-fd-container: 1400px;
+  --fd-page-width: 1200px;
+  --fd-sidebar-width: 0px;
+  --fd-toc-width: 0px;
+  --fd-layout-width: 100vw;
+  --fd-banner-height: 0px;
+  --fd-nav-height: 0px;
+  --fd-tocnav-height: 0px;
+
+  --color-fd-diff-remove: rgba(200, 10, 100, 0.12);
+  --color-fd-diff-remove-symbol: rgb(230, 10, 100);
+  --color-fd-diff-add: rgba(14, 180, 100, 0.1);
+  --color-fd-diff-add-symbol: rgb(10, 200, 100);
+
   --animate-fd-fade-in: fd-fade-in 300ms ease;
   --animate-fd-fade-out: fd-fade-out 300ms ease;
 
   --animate-fd-dialog-in: fd-dialog-in 300ms cubic-bezier(0.16, 1, 0.3, 1);
   --animate-fd-dialog-out: fd-dialog-out 300ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-fd-popover-in: fd-popover-in 100ms ease;
-  --animate-fd-popover-out: fd-popover-out 100ms ease;
+  --animate-fd-popover-in: fd-popover-in 130ms ease;
+  --animate-fd-popover-out: fd-popover-out 130ms ease;
+
+  --animate-fd-collapsible-down: fd-collapsible-down 150ms
+    cubic-bezier(0.45, 0, 0.55, 1);
+  --animate-fd-collapsible-up: fd-collapsible-up 150ms
+    cubic-bezier(0.45, 0, 0.55, 1);
+
+  --animate-fd-accordion-down: fd-accordion-down 200ms ease-out;
+  --animate-fd-accordion-up: fd-accordion-up 200ms ease-out;
+
+  --animate-fd-nav-menu-in: fd-nav-menu-in 200ms ease;
+  --animate-fd-nav-menu-out: fd-nav-menu-out 200ms ease;
 
   --animate-fd-enterFromLeft: fd-enterFromLeft 250ms ease;
   --animate-fd-enterFromRight: fd-enterFromRight 250ms ease;
@@ -32,13 +56,53 @@
 
   @keyframes fd-sidebar-in {
     from {
-      transform: translateX(var(--fd-sidebar-drawer-offset));
+      transform: translateX(var(--fd-sidebar-mobile-offset));
     }
   }
 
   @keyframes fd-sidebar-out {
     to {
-      transform: translateX(var(--fd-sidebar-drawer-offset));
+      transform: translateX(var(--fd-sidebar-mobile-offset));
+    }
+  }
+
+  @keyframes fd-collapsible-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+
+  @keyframes fd-collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  @keyframes fd-accordion-down {
+    from {
+      height: 0;
+      opacity: 0.5;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes fd-accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+      opacity: 0.5;
     }
   }
 
@@ -65,14 +129,14 @@
   @keyframes fd-popover-in {
     from {
       opacity: 0;
-      transform: scale(0.9);
+      transform: scale(0.7);
     }
   }
 
   @keyframes fd-popover-out {
     to {
       opacity: 0;
-      transform: scale(0.9);
+      transform: scale(0.7);
     }
   }
 
@@ -137,6 +201,28 @@
       transform: translateX(-200px);
     }
   }
+
+  @keyframes fd-nav-menu-in {
+    from {
+      opacity: 0;
+      height: 0px;
+    }
+    to {
+      opacity: 1;
+      height: var(--radix-navigation-menu-viewport-height);
+    }
+  }
+
+  @keyframes fd-nav-menu-out {
+    from {
+      opacity: 1;
+      height: var(--radix-navigation-menu-viewport-height);
+    }
+    to {
+      opacity: 0;
+      height: 0px;
+    }
+  }
 }
 
 @layer base {
@@ -151,6 +237,11 @@
   body {
     background-color: var(--color-fd-background);
     color: var(--color-fd-foreground);
+  }
+
+  :root,
+  #nd-docs-layout {
+    --fd-layout-offset: max(calc(50vw - var(--fd-layout-width) / 2), 0px);
   }
 }
 
@@ -206,13 +297,24 @@
   }
 }
 
+@property --radix-collapsible-content-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @apply 2xl:max-w-(--spacing-fd-container);
+}
+
 @variant dark (&:where(.dark, .dark *));
 
-/* define/override layout variables */
-@variant layout {
-  #nd-docs-layout:has(&),
-  #nd-notebook-layout:has(&),
-  #nd-home-layout:has(&) {
+/* Apply styles to :root */
+@custom-variant on-root {
+  :root:has(&) {
     @slot;
   }
 }

@@ -89,7 +89,8 @@
     }
   },
   "files": [
-    "dist"
+    "css/*",
+    "dist/*"
   ],
   "scripts": {
     "build": "tsdown",

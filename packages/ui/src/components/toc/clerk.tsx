@@ -71,7 +71,7 @@ export function TOCItems({ ref, className, ...props }: ComponentProps<'div'>) {
     <>
       {svg && (
         <div
-          className="absolute start-0 top-0 rtl:-scale-x-100"
+          className="absolute start-0   rtl:-scale-x-100"
           style={{
             width: svg.width,
             height: svg.height,
@@ -91,12 +91,7 @@ export function TOCItems({ ref, className, ...props }: ComponentProps<'div'>) {
       )}
       <div ref={mergeRefs(containerRef, ref)} className={cn('flex flex-col', className)} {...props}>
         {items.map((item, i) => (
-          <TOCItem
-            key={item.url}
-            item={item}
-            upper={items[i - 1]?.depth}
-            lower={items[i + 1]?.depth}
-          />
+          <TOCItem key={item.url} item={item} upper={items[i - 1]?.depth} lower={items[i + 1]?.depth} />
         ))}
       </div>
     </>
