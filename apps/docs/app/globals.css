@@ -60,8 +60,20 @@
     --foreground: #ededed;
   }
 } */
+@theme inline {
+ 
 
+  --animate-stroke: stroke 5s linear infinite;
+
+  --color-gradient-radial: radial-gradient(circle, var(--tw-gradient-stops));
+  --color-repeat-gradient-to-r: repeating-linear-gradient(to right, var(--tw-gradient-stops));
+  --color-repeat-gradient-to-br: repeating-linear-gradient(
+    to bottom right,
+    var(--tw-gradient-stops)
+  );
+}
 @theme {
+
   --color-fd-background: hsl(0, 0%, 96%);
   --color-fd-foreground: hsl(0, 0%, 3.9%);
   --color-fd-muted: hsl(0, 0%, 96.1%);
@@ -205,3 +217,5 @@ body {
     display: none;
   }
 }
+
+

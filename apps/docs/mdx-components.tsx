@@ -8,7 +8,9 @@ import * as FilesComponents from 'xyzdocs-ui/components/files';
 import { Accordion, Accordions } from 'xyzdocs-ui/components/accordion';
 import { Mermaid } from '@/components/mdx/mermaid';
 import * as Twoslash from 'xyzdocs-twoslash/ui';
-
+import { ImageZoom } from 'xyzdocs-ui/components/image-zoom';
+import { Installation } from './components/preview/installation';
+import { Step, Steps } from 'xyzdocs-ui/components/steps';
 // import { Mermaid } from './components/mdx/mermaid';
 // you may use environment variable here
 const isPrinting = false;
@@ -35,6 +37,10 @@ export function getMDXComponents(components?: MDXComponents) {
     // MermaidDiagram,
     Mermaid,
     ...Twoslash,
+    img: (props) => <ImageZoom {...(props as any)} />,
+    Installation,
+    Steps,
+    Step,
   } satisfies MDXComponents;
 }
 

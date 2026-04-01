@@ -32,7 +32,7 @@ npm install beautiful-mermaid
 ```
 
 ```tsx title="components/mdx/mermaid.tsx"
-import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
+import { CodeBlock, Pre } from 'xyzdocs-ui/components/codeblock';
 import { renderMermaidSVG } from 'beautiful-mermaid';
 
 export async function Mermaid({ chart }: { chart: string }) {
@@ -60,7 +60,7 @@ export async function Mermaid({ chart }: { chart: string }) {
 Add the component as a MDX component:
 
 ```tsx title="components/mdx.tsx"
-import defaultMdxComponents from 'fumadocs-ui/mdx';
+import defaultMdxComponents from 'xyzdocs-ui/mdx';
 import { Mermaid } from '@/components/mdx/mermaid'; // [!code ++]
 import type { MDXComponents } from 'mdx/types';
 
@@ -150,8 +150,8 @@ Sit down: 5: Me
 You can convert `mermaid` codeblocks into the MDX usage with the `remarkMdxMermaid` remark plugin.
 
 ```tsx tab="Fumadocs MDX" title="source.config.ts"
-import { remarkMdxMermaid } from 'fumadocs-core/mdx-plugins';
-import { defineConfig } from 'fumadocs-mdx/config';
+import { remarkMdxMermaid } from 'xyzdocs-core/mdx-plugins';
+import { defineConfig } from 'xyzdocs-mdx/config';
 
 export default defineConfig({
   mdxOptions: {

@@ -3,7 +3,7 @@ import { defineDocs, metaSchema, frontmatterSchema, defineConfig } from 'xyzdocs
 import lastModified from 'xyzdocs-mdx/plugins/last-modified';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
-import { remarkMdxMermaid } from 'xyzdocs-core/mdx-plugins';
+import { remarkMdxMermaid, remarkSteps } from 'xyzdocs-core/mdx-plugins';
 import { transformerTwoslash } from 'xyzdocs-twoslash';
 import { rehypeCodeDefaultOptions } from 'xyzdocs-core/mdx-plugins';
 import { ElementContent } from 'hast';
@@ -30,7 +30,7 @@ export const docs = defineDocs({
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
-    remarkPlugins: [remarkMath, remarkMdxMermaid],
+    remarkPlugins: [remarkMath, remarkMdxMermaid, remarkSteps],
     // Place it at first, it should be executed before the syntax highlighter
     rehypePlugins: (v) => [rehypeKatex, ...v],
     rehypeCodeOptions: {
