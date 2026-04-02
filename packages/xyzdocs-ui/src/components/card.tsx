@@ -1,6 +1,6 @@
 import Link from 'xyzdocs-core/link';
 import type { HTMLAttributes, ReactNode } from 'react';
-import { cn } from '@xyzdocs/ui/cn';
+import { cn } from '@/utils/cn';
 
 export function Cards(props: HTMLAttributes<HTMLDivElement>) {
   return (

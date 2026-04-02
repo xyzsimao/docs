@@ -1,3 +1,6 @@
 packages:
   - "apps/*"
   - "packages/*"
+ # 排除 specific-project 工程
+  - '!packages/ui'
+  # 排除 test 目录下的所有工程

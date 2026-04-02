@@ -10,11 +10,11 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { cn } from '@xyzdocs/ui/cn';
-import { useCopyButton } from '@xyzdocs/ui/hooks/use-copy-button';
+import { cn } from '@/utils/cn';
+import { useCopyButton } from '@/utils/use-copy-button';
 import { buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { mergeRefs } from '@xyzdocs/ui/merge-refs';
+import { mergeRefs } from '@/utils/merge-refs';
 
 export interface CodeBlockProps extends ComponentProps<'figure'> {
   /**

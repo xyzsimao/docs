@@ -1,16 +1,12 @@
+import { cn } from '@/utils/cn';
 import { CircleCheck, CircleX, Info, Lightbulb, TriangleAlert } from 'lucide-react';
 import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '@xyzdocs/ui/cn';
 
 export type CalloutType = 'info' | 'warn' | 'error' | 'success' | 'warning' | 'idea';
 
 const iconClass = 'size-5 -me-0.5 fill-(--callout-color) text-fd-card';
 
-export function Callout({
-  children,
-  title,
-  ...props
-}: { title?: ReactNode } & Omit<CalloutContainerProps, 'title'>) {
+export function Callout({ children, title, ...props }: { title?: ReactNode } & Omit<CalloutContainerProps, 'title'>) {
   return (
     <CalloutContainer {...props}>
       {title && <CalloutTitle>{title}</CalloutTitle>}
@@ -50,7 +46,7 @@ export function CalloutContainer({
   return (
     <div
       className={cn(
-        'flex gap-2 my-4 rounded-xl border bg-fd-card p-3 ps-1 text-sm text-fd-card-foreground shadow-md',
+        'flex gap-2 my-4 rounded-xl border  bg-(--callout-color)/20  p-3 ps-1 text-sm text-fd-card-foreground shadow-md',
         className,
       )}
       style={
@@ -61,16 +57,14 @@ export function CalloutContainer({
       }
       {...props}
     >
-      <div role="none" className="w-0.5 bg-(--callout-color)/50 rounded-sm" />
+      <div role="none" className="w-1.5  bg-(--callout-color)/50 rounded-sm" />
       {icon ??
         {
           info: <Info className={iconClass} />,
           warning: <TriangleAlert className={iconClass} />,
           error: <CircleX className={iconClass} />,
           success: <CircleCheck className={iconClass} />,
-          idea: (
-            <Lightbulb className="size-5 -me-0.5 fill-(--callout-color) text-(--callout-color)" />
-          ),
+          idea: <Lightbulb className="size-5 -me-0.5 fill-(--callout-color) text-(--callout-color)" />,
         }[type]}
       <div className="flex flex-col gap-2 min-w-0 flex-1">{children}</div>
     </div>
@@ -87,10 +81,7 @@ export function CalloutTitle({ children, className, ...props }: ComponentProps<'
 
 export function CalloutDescription({ children, className, ...props }: ComponentProps<'p'>) {
   return (
-    <div
-      className={cn('text-fd-muted-foreground prose-no-margin empty:hidden', className)}
-      {...props}
-    >
+    <div className={cn('text-fd-muted-foreground prose-no-margin empty:hidden', className)} {...props}>
       {children}
     </div>
   );

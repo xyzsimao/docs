@@ -7,6 +7,8 @@ import { getMDXComponents } from '@/mdx-components';
 import { notFound } from 'next/navigation'
 import { DocsBody, DocsPage, PageLastUpdate } from 'xyzdocs-ui/layouts/docs/page';
 import { ReactNode } from 'react';
+import { findSiblings } from 'xyzdocs-core/page-tree';
+import { Card, Cards } from 'xyzdocs-ui/components/card';
 
 function PreviewRenderer({ preview }: { preview: string }): ReactNode {
   if (preview && preview in Preview) {
@@ -16,6 +18,27 @@ function PreviewRenderer({ preview }: { preview: string }): ReactNode {
 
   return null;
 }
+
+function DocsCategory({ url }: { url: string }) {
+  return (
+    <Cards>
+      {findSiblings(source.getPageTree(), url).map((item) => {
+        if (item.type === 'separator') return;
+        if (item.type === 'folder') {
+          if (!item.index) return;
+          item = item.index;
+        }
+
+        return (
+          <Card key={item.url} title={item.name} href={item.url}>
+            {item.description}
+          </Card>
+        );
+      })}
+    </Cards>
+  );
+}
+
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -27,7 +50,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const { body: Mdx, toc, lastModified } = await page.data;
   console.log('page.data:', JSON.stringify(page.data, null, 2));
   // const { body: Mdx, toc, lastModified } = await page.data.load();
-  console.log('rendering page toc', toc);
+  console.log('page.url:', page.url);
   // const doc = page.data
   // const MDX = doc.body
   return (
@@ -51,9 +74,12 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           {page.data.preview && <PreviewRenderer preview={page.data.preview} />}
           <Mdx
             components={getMDXComponents({
-              components: {},
+              DocsCategory: ({ url }) => {
+                return <DocsCategory url={url ?? page.url} />;
+              },
             })}
           />
+          {page.data.index ? <DocsCategory url={page.url} /> : null}
         </div>
         <Feedback onSendAction={onPageFeedbackAction} />
         {lastModified && <PageLastUpdate date={lastModified} />}

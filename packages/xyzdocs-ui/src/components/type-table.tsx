@@ -3,7 +3,7 @@
 import { ChevronDown } from 'lucide-react';
 import Link from 'xyzdocs-core/link';
 import { cva } from 'class-variance-authority';
-import { cn } from '@xyzdocs/ui/cn';
+import { cn } from '@/utils/cn';
 import { type ReactNode, useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 

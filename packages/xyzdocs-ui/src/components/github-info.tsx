@@ -1,4 +1,4 @@
-import { cn } from '@xyzdocs/ui/cn';
+import { cn } from '@/utils/cn';
 import { Star } from 'lucide-react';
 import { type AnchorHTMLAttributes } from 'react';
 

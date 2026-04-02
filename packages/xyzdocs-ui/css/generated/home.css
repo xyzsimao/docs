@@ -40,7 +40,6 @@
 @source inline("data-[active=true]:text-fd-primary");
 @source inline("default");
 @source inline("defaultVariants");
-@source inline("div");
 @source inline("duration-300");
 @source inline("empty:hidden");
 @source inline("enableHoverToOpen");
@@ -206,7 +205,6 @@
 @source inline("use");
 @source inline("useHomeLayout");
 @source inline("useIsScrollTop");
-@source inline("useLinkItems");
 @source inline("useProvider");
 @source inline("useState");
 @source inline("value");

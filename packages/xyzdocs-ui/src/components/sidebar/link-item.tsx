@@ -1,14 +1,12 @@
+'use client';
 import type { HTMLAttributes } from 'react';
 import type * as Base from './base';
-import type { LinkItemType } from '@xyzdocs/ui/link-item';
+import { isLinkItemActive, type LinkItemType } from '@/layouts/shared';
+import { usePathname } from 'xyzdocs-core/framework';
 
 type InternalComponents = Pick<
   typeof Base,
-  | 'SidebarFolder'
-  | 'SidebarFolderLink'
-  | 'SidebarFolderContent'
-  | 'SidebarFolderTrigger'
-  | 'SidebarItem'
+  'SidebarFolder' | 'SidebarFolderLink' | 'SidebarFolderContent' | 'SidebarFolderTrigger' | 'SidebarItem'
 >;
 
 export function createLinkItemRenderer({

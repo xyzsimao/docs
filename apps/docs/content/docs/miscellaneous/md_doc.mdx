@@ -98,3 +98,23 @@ export const { GET } = createSearchAPI('advanced', {
 
 
 <include>.test.mdx#setup-section</include>
+
+<Callout type='error' title='For Markdown'>
+
+Markdown (`.md`) files do not support JSX syntax. To use `<include />`, you need to configure `remark-directive`.
+
+```ts title="source.config.ts"
+import { defineConfig } from 'fumadocs-mdx/config';
+import remarkDirective from 'remark-directive';
+
+export default defineConfig({
+  mdxOptions: {
+    // [!code ++]
+    remarkPlugins: [remarkDirective],
+  },
+});
+```
+
+You may also need `rehype-raw` for HTML comments & content.
+
+</Callout>

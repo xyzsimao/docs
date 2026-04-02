@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import type { TOCItemType } from 'xyzdocs-core/toc';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import type { ComponentProps } from 'react';
-import { cn } from '@xyzdocs/ui/cn';
+import { cn } from '@/utils/cn';
 
 export interface InlineTocProps extends ComponentProps<typeof Collapsible> {
   items: TOCItemType[];

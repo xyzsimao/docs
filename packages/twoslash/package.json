@@ -39,7 +39,6 @@
   "scripts": {
     "build": "tsdown",
     "clean": "rimraf dist",
-    "dev": "tsdown --watch",
     "lint": "eslint .",
     "types:check": "tsc --noEmit"
   },

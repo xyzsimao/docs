@@ -13,7 +13,7 @@
   "aliases": {
     "components": "@xyzdocs/ui/components",
     "utils": "@xyzdocs/ui/lib/utils",
-    "hooks": "@xyzdocs/ui/hooks",
+    "hooks": "@/utils",
     "lib": "@xyzdocs/ui/lib",
     "ui": "@xyzdocs/ui/components"
   }

@@ -50,6 +50,9 @@
       "import": "./dist/plugins/*.js"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "loader-mdx.cjs",
     "loader-meta.cjs",

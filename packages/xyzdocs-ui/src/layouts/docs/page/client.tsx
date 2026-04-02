@@ -13,18 +13,18 @@ import {
 } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'xyzdocs-core/link';
-import { cn } from '@xyzdocs/ui/cn';
+import { cn } from '@/utils/cn';
 import { useI18n } from '@/contexts/i18n';
 import { useTreeContext, useTreePath } from '@/contexts/tree';
 import type * as PageTree from 'xyzdocs-core/page-tree';
 import { usePathname } from 'xyzdocs-core/framework';
 import { type BreadcrumbOptions, getBreadcrumbItemsFromPath } from 'xyzdocs-core/breadcrumb';
-import { isActive } from '@xyzdocs/ui/urls';
+import { isActive } from '@/utils/urls';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useTOCItems } from '@/components/toc';
 import { useActiveAnchor } from 'xyzdocs-core/toc';
-import { LayoutContext } from '../client';
-import { useFooterItems } from '@xyzdocs/ui/hooks/use-footer-items';
+// import { LayoutContext } from '../client';
+import { useFooterItems } from '@/utils/use-footer-items';
 
 const TocPopoverContext = createContext<{
   open: boolean;
@@ -34,7 +34,7 @@ const TocPopoverContext = createContext<{
 export function PageTOCPopover({ className, children, ...rest }: ComponentProps<'div'>) {
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
-  const { isNavTransparent } = use(LayoutContext)!;
+  // const { isNavTransparent } = use(LayoutContext)!;
 
   const onClick = useEffectEvent((e: Event) => {
     if (!open) return;
@@ -74,7 +74,7 @@ export function PageTOCPopover({ className, children, ...rest }: ComponentProps<
           ref={ref}
           className={cn(
             'border-b backdrop-blur-sm transition-colors',
-            (!isNavTransparent || open) && 'bg-fd-background/80',
+            // (!isNavTransparent || open) && 'bg-fd-background/80',
             open && 'shadow-lg',
           )}
         >

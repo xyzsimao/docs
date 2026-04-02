@@ -1,0 +1,7 @@
+{
+  "root": true,
+  "title": "javascript",
+  "description": "javascript related docs",
+  "icon": "FolderKanban",
+  "pages": ["index",  "..."]
+}
