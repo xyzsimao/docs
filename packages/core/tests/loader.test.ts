@@ -1,42 +1,42 @@
-import { expect, test } from 'vitest'
-import { createGetUrl, getSlugs, loader, LoaderOptions, Source } from '@/source'
-import type { ReactElement } from 'react'
-import { removeUndefined } from '@/utils/remove-undefined'
-import { lucideIconsPlugin } from '@/source/plugins/lucide-icons'
+import { expect, test } from 'vitest';
+import { createGetUrl, getSlugs, loader, LoaderOptions, Source } from '@/source';
+import type { ReactElement } from 'react';
+import { removeUndefined } from '@/utils/remove-undefined';
+import { lucideIconsPlugin } from '@/source/plugins/lucide-icons';
 
 test('get slugs', () => {
-  expect(getSlugs('index.mdx')).toStrictEqual([])
-  expect(getSlugs('page.mdx')).toStrictEqual(['page'])
+  expect(getSlugs('index.mdx')).toStrictEqual([]);
+  expect(getSlugs('page.mdx')).toStrictEqual(['page']);
 
-  expect(getSlugs('nested/index.mdx')).toStrictEqual(['nested'])
-  expect(getSlugs('nested/page.mdx')).toStrictEqual(['nested', 'page'])
-})
+  expect(getSlugs('nested/index.mdx')).toStrictEqual(['nested']);
+  expect(getSlugs('nested/page.mdx')).toStrictEqual(['nested', 'page']);
+});
 
 test('get slugs: folder groups', () => {
-  expect(getSlugs('(nested)/index.mdx')).toStrictEqual([])
-  expect(getSlugs('folder/(nested)/page.mdx')).toStrictEqual(['folder', 'page'])
+  expect(getSlugs('(nested)/index.mdx')).toStrictEqual([]);
+  expect(getSlugs('folder/(nested)/page.mdx')).toStrictEqual(['folder', 'page']);
 
-  expect(() => getSlugs('nested/(page).mdx')).toThrowError()
-})
+  expect(() => getSlugs('nested/(page).mdx')).toThrowError();
+});
 
 test('Get URL: Empty', () => {
-  const getUrl = createGetUrl('')
-  expect(getUrl(['docs', 'hello'])).toBe('/docs/hello')
-  expect(getUrl([''])).toBe('/')
-  expect(getUrl([])).toBe('/')
-})
+  const getUrl = createGetUrl('');
+  expect(getUrl(['docs', 'hello'])).toBe('/docs/hello');
+  expect(getUrl([''])).toBe('/');
+  expect(getUrl([])).toBe('/');
+});
 
 test('Get URL: Base', () => {
-  const getUrl = createGetUrl('/docs')
-  expect(getUrl(['docs', 'hello'])).toBe('/docs/docs/hello')
-  expect(getUrl([''])).toBe('/docs')
-})
+  const getUrl = createGetUrl('/docs');
+  expect(getUrl(['docs', 'hello'])).toBe('/docs/docs/hello');
+  expect(getUrl([''])).toBe('/docs');
+});
 
 const pageTreeTests: {
-  title: string
-  output: string
-  source: Source
-  loader?: Partial<LoaderOptions>
+  title: string;
+  output: string;
+  source: Source;
+  loader?: Partial<LoaderOptions>;
 }[] = [
   {
     title: 'Basic',
@@ -103,7 +103,7 @@ const pageTreeTests: {
     source: (await import('./fixtures/page-trees/circular')).source,
     output: './fixtures/page-trees/circular.test.json',
   },
-]
+];
 
 for (const pageTreeTest of pageTreeTests) {
   test(`Page Tree: ${pageTreeTest.title}`, async () => {
@@ -113,33 +113,30 @@ for (const pageTreeTest of pageTreeTests) {
         noRef: true,
       },
       ...pageTreeTest.loader,
-    })
+    });
 
-    await expect(removeUndefined(source.pageTree, true)).toMatchFileSnapshot(
-      pageTreeTest.output
-    )
-  })
+    await expect(removeUndefined(source.pageTree, true)).toMatchFileSnapshot(pageTreeTest.output);
+  });
 }
 
 test('Loader: Simple', async () => {
   const result = loader({
     baseUrl: '/',
     source: (await import('./fixtures/page-trees/basic')).source,
-  })
+  });
 
-  expect(result.getPages().length).toBe(1)
-  expect(result.getPage(['test'])).toBeDefined()
-})
+  expect(result.getPages().length).toBe(1);
+  expect(result.getPage(['test'])).toBeDefined();
+});
 
 test('Nested Directories', async () => {
   const result = loader({
     baseUrl: '/',
     icon: (v) => v as unknown as ReactElement,
     source: (await import('./fixtures/page-trees/nested')).source,
-  })
+  });
 
-  expect(result.getPages().map((page) => page.slugs.join('/')))
-    .toMatchInlineSnapshot(`
+  expect(result.getPages().map((page) => page.slugs.join('/'))).toMatchInlineSnapshot(`
       [
         "test",
         "hidden",
@@ -147,13 +144,13 @@ test('Nested Directories', async () => {
         "nested/test",
         "hello",
       ]
-    `)
+    `);
   // page in folder
-  expect(result.getPage(['nested', 'test'])).toBeDefined()
+  expect(result.getPage(['nested', 'test'])).toBeDefined();
 
   // page in folder group
-  expect(result.getPage(['hello'])).toBeDefined()
-})
+  expect(result.getPage(['hello'])).toBeDefined();
+});
 
 test('Internationalized Routing', async () => {
   const result = loader({
@@ -163,12 +160,12 @@ test('Internationalized Routing', async () => {
       defaultLanguage: 'en',
     },
     source: (await import('./fixtures/page-trees/i18n')).source,
-  })
+  });
 
-  await expect(
-    removeUndefined(result.getLanguages(), true)
-  ).toMatchFileSnapshot('./fixtures/page-trees/i18n.entries.json')
-})
+  await expect(removeUndefined(result.getLanguages(), true)).toMatchFileSnapshot(
+    './fixtures/page-trees/i18n.entries.json',
+  );
+});
 
 test('Internationalized Routing: Hide Prefix', async () => {
   const result = loader({
@@ -179,11 +176,11 @@ test('Internationalized Routing: Hide Prefix', async () => {
       hideLocale: 'default-locale',
     },
     source: (await import('./fixtures/page-trees/i18n')).source,
-  })
-  expect(result.getPages().length).toBe(4)
-  expect(result.getPage(['test'])?.url).toBe('/test')
-  expect(result.getPage(['test'], 'cn')?.url).toBe('/cn/test')
-})
+  });
+  expect(result.getPages().length).toBe(4);
+  expect(result.getPage(['test'])?.url).toBe('/test');
+  expect(result.getPage(['test'], 'cn')?.url).toBe('/cn/test');
+});
 
 test('Loader: Allow duplicate pages when explicitly referenced twice', () => {
   const result = loader({
@@ -216,14 +213,14 @@ test('Loader: Allow duplicate pages when explicitly referenced twice', () => {
         },
       ],
     },
-  })
+  });
 
-  const treeChildren = result.pageTree.children
-  expect(treeChildren.length).toBe(3)
-  expect(treeChildren[0].$id).toBe('page1.mdx')
-  expect(treeChildren[1].$id).toBe('page1.mdx')
-  expect(treeChildren[2].$id).toBe('page2.mdx')
-})
+  const treeChildren = result.pageTree.children;
+  expect(treeChildren.length).toBe(3);
+  expect(treeChildren[0].$id).toBe('page1.mdx');
+  expect(treeChildren[1].$id).toBe('page1.mdx');
+  expect(treeChildren[2].$id).toBe('page2.mdx');
+});
 
 test('Loader: No duplicate pages when referencing subfolder items and folder', () => {
   const result = loader({
@@ -283,18 +280,18 @@ test('Loader: No duplicate pages when referencing subfolder items and folder', (
         },
       ],
     },
-  })
+  });
 
   // Check that pages are not duplicated
-  const pages = result.getPages()
-  const pagePaths = pages.map((page) => page.slugs.join('/'))
+  const pages = result.getPages();
+  const pagePaths = pages.map((page) => page.slugs.join('/'));
 
   // Should have exactly 5 pages total
-  expect(pages.length).toBe(5)
+  expect(pages.length).toBe(5);
 
   // Check that each page appears only once
-  const uniquePaths = new Set(pagePaths)
-  expect(uniquePaths.size).toBe(pagePaths.length)
+  const uniquePaths = new Set(pagePaths);
+  expect(uniquePaths.size).toBe(pagePaths.length);
 
   // Verify all pages are present
   expect(pagePaths.sort()).toEqual([
@@ -303,11 +300,10 @@ test('Loader: No duplicate pages when referencing subfolder items and folder', (
     'subfolder/page1',
     'subfolder/page2',
     'subfolder/page3',
-  ])
+  ]);
 
   // Check the page tree structure
-  expect(removeUndefined(result.pageTree, true), 'Page Tree')
-    .toMatchInlineSnapshot(`
+  expect(removeUndefined(result.pageTree, true), 'Page Tree').toMatchInlineSnapshot(`
     {
       "$id": "root",
       "children": [
@@ -351,8 +347,8 @@ test('Loader: No duplicate pages when referencing subfolder items and folder', (
       ],
       "name": "Docs",
     }
-  `)
-})
+  `);
+});
 
 test('Loader: Serialize data', async () => {
   const result = loader({
@@ -388,21 +384,20 @@ test('Loader: Serialize data', async () => {
         },
       ],
     },
-  })
+  });
 
-  removeUndefined(result.pageTree, true)
-  const prev = JSON.stringify(result.pageTree)
+  removeUndefined(result.pageTree, true);
+  const prev = JSON.stringify(result.pageTree);
 
-  expect(await result.serializePageTree(result.pageTree))
-    .toMatchInlineSnapshot(`
+  expect(await result.serializePageTree(result.pageTree)).toMatchInlineSnapshot(`
     {
-      "$xyzdocs_loader": "page-tree",
+      "$fumadocs_loader": "page-tree",
       "data": {
         "$id": "root",
         "children": [
           {
             "$id": "test.mdx",
-            "icon": "<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>",
+            "icon": "<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket" aria-hidden="true"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"></path><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"></path></svg>",
             "name": "Hello &lt;Foo&gt;",
             "type": "page",
             "url": "/test",
@@ -430,7 +425,7 @@ test('Loader: Serialize data', async () => {
         "name": "Docs",
       },
     }
-  `)
+  `);
 
-  expect(JSON.stringify(result.pageTree), 'page tree unchanged').toBe(prev)
-})
+  expect(JSON.stringify(result.pageTree), 'page tree unchanged').toBe(prev);
+});

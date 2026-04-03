@@ -26,10 +26,9 @@ export async function mdxPreset(
     remarkHeadingOptions,
     remarkStructureOptions,
     remarkCodeTabOptions,
-    remarkNpmOptions,
     outputFormat = 'function-body',
     ...mdxOptions
-  } = options
+  } = options;
 
   const remarkPlugins = await resolvePlugins(
     (v) => [

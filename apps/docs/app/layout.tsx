@@ -24,7 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} min-h-full h-full`}
+      suppressHydrationWarning
+    >
       <Body>
         <RootProvider>
           <TreeContextProvider tree={source.getPageTree()}>

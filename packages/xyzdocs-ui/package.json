@@ -103,9 +103,9 @@
   "scripts": {
     "build": "pnpm build:layout && pnpm build:tailwind",
     "build:layout": "tsdown --config-loader unrun",
-    "build:tailwind": "tailwindcss -i css/style.css -o ./dist/style.css",
+    "build:tailwind": "tailwindcss -i css/style.css -o ./dist/style.css ",
     "test": "vitest",
-    "dev": " tsdown --watch --clean false &&  pnpm build:tailwind ",
+    "dev": "concurrently \"tsdown --watch --clean false\" \"tailwindcss -i css/style.css -o ./dist/style.css -w\"",
     "typecheck": "tsc --noEmit",
     "release": "bumpp",
     "prepublishOnly": "pnpm run build"

@@ -9,6 +9,11 @@
 @import 'xyzdocs-ui/css/neutral.css'; */
 @import 'xyzdocs-ui/style.css';
 :root {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: monospace,ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New";
+ 
   --background: #ffffff;
   --foreground: #171717;
 
@@ -175,6 +180,10 @@
   body {
     background-color: var(--color-fd-background);
     color: var(--color-fd-foreground);
+  }
+
+  .flex-one {
+    flex: 1 1 0;
   }
 }
 
