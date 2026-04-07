@@ -18,7 +18,7 @@ import {
 } from 'react';
 import { useTreePath } from '@/contexts/tree';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
-// import { useDocsLayout } from '../..';
+import { useDocsLayout } from '../..';
 
 export type TOCProviderProps = Base.TOCProviderProps;
 
@@ -115,7 +115,7 @@ export function TOCPopover({
   const items = Base.useTOCItems();
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
-  // const { isNavTransparent } = useDocsLayout();
+  const { isNavTransparent } = useDocsLayout();
   const { TOCItems, TOCItem, TOCEmpty } = style === 'clerk' ? TocClerk : TocDefault;
 
   const onClickOutside = useEffectEvent((e: Event) => {
@@ -160,7 +160,7 @@ export function TOCPopover({
           ref={ref}
           className={cn(
             'border-b backdrop-blur-sm transition-colors',
-            // (!isNavTransparent || open) && 'bg-fd-background/80',
+            (!isNavTransparent || open) && 'bg-fd-background/80',
             open && 'shadow-lg',
           )}
         >

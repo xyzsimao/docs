@@ -391,7 +391,7 @@ test('Loader: Serialize data', async () => {
 
   expect(await result.serializePageTree(result.pageTree)).toMatchInlineSnapshot(`
     {
-      "$fumadocs_loader": "page-tree",
+      "$xyzdocs_loader": "page-tree",
       "data": {
         "$id": "root",
         "children": [

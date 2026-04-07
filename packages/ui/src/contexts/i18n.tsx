@@ -108,21 +108,21 @@ export function I18nProvider({
   onChangeRef.current = onChange;
 
   return (
-    <I18nContext
-      value={useMemo(
-        () => ({
-          locale,
-          locales,
-          text: {
-            ...defaultTranslations,
-            ...translations,
-          },
-          onChange: (v) => onChangeRef.current(v),
-        }),
-        [locale, locales, translations],
-      )}
-    >
-      {children}
-    </I18nContext>
+    // <I18nContext
+    //   value={useMemo(
+    //     () => ({
+    //       locale,
+    //       locales,
+    //       text: {
+    //         ...defaultTranslations,
+    //         ...translations,
+    //       },
+    //       onChange: (v) => onChangeRef.current(v),
+    //     }),
+    //     [locale, locales, translations],
+    //   )}
+    // >
+    //   {children}
+    // </I18nContext>
   );
 }

@@ -39,7 +39,6 @@
 @source inline("[grid-area:toc]");
 @source inline("a");
 @source inline("absolute");
-@source inline("active");
 @source inline("after");
 @source inline("all");
 @source inline("always");
@@ -105,7 +104,6 @@
 @source inline("context");
 @source inline("createContext");
 @source inline("createLinkItemRenderer");
-@source inline("createPageTreeRenderer");
 @source inline("current");
 @source inline("currentColor");
 @source inline("cva");
@@ -462,7 +460,6 @@
 @source inline("unlisted");
 @source inline("url");
 @source inline("use");
-@source inline("useActiveAnchor");
 @source inline("useDocsLayout");
 @source inline("useDocsPage");
 @source inline("useFooterItems");
@@ -474,7 +471,6 @@
 @source inline("useRef");
 @source inline("useSidebar");
 @source inline("useState");
-@source inline("useTOCItems");
 @source inline("useTreeContext");
 @source inline("useTreePath");
 @source inline("value");

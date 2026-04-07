@@ -33,7 +33,7 @@ const LayoutContext = createContext<{
 
 export function useHomeLayout() {
   const context = use(LayoutContext);
-  if (!context) throw new Error('Please use this component under <HomeLayout /> (`xyzdocs-ui/layouts/home`).');
+  if (!context) throw new Error('Please use this component under <HomeLayout /> (`fumadocs-ui/layouts/home`).');
   return context;
 }
 
@@ -48,7 +48,7 @@ export function HomeLayout(props: HomeLayoutProps) {
     nav: { enabled: navEnabled = true } = {},
     slots: defaultSlots,
     children,
-    i18n: _i18n,
+    // i18n: _i18n,
     githubUrl: _githubUrl,
     links: _links,
     themeSwitch: _themeSwitch,

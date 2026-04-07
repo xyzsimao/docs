@@ -20,7 +20,7 @@ import { mergeRefs } from '@/utils/merge-refs';
 import { AnimatePresence, motion } from 'motion/react';
 import { RemoveScroll } from 'react-remove-scroll';
 import { useFluxLayout } from '..';
-import { XIcon, SidebarIcon } from 'lucide-react';
+import { XIcon, SidebarIcon, TruckElectric } from 'lucide-react';
 
 const MotionSidebarItem = motion.create(Base.SidebarItem);
 const MotionSidebarFolderTrigger = motion.create(Base.SidebarFolderTrigger);
@@ -129,12 +129,9 @@ function SidebarContent({ ref: refProp, className, children, ...props }: Compone
   if (open && !blockScroll) setBlockScroll(true);
 
   return (
-    <RemoveScroll enabled={blockScroll}>
+    <RemoveScroll enabled={true}>
       <motion.div
-        className={cn(
-          'fixed inset-0 py-10 z-30 backdrop-blur-md bg-fd-background/60',
-          !open && 'pointer-events-none',
-        )}
+        className={cn('fixed inset-0 py-10 z-30 backdrop-blur-md bg-fd-background/60', !open && 'pointer-events-none')}
         initial="hide"
         variants={{
           show: {

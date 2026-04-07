@@ -4,9 +4,10 @@ import { cn } from '@/utils/cn';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { useDocsLayout } from '..';
 
+
 export function Container(props: ComponentProps<'div'>) {
   const { slots } = useDocsLayout();
-  const { collapsed } = slots.sidebar.useSidebar();
+  const { collapsed } = slots.sidebar?.useSidebar?.() ?? {};
   const [previousCollapsed, setPreviousCollapsed] = useState(collapsed);
   const isCollapseChanged = previousCollapsed !== collapsed;
 
@@ -18,6 +19,10 @@ export function Container(props: ComponentProps<'div'>) {
   return (
     <div
       id="nd-docs-layout"
+      className={cn(
+        'grid overflow-x-clip min-h-(--fd-docs-height) [--fd-docs-height:100dvh] [--fd-header-height:0px] [--fd-toc-popover-height:0px] [--fd-sidebar-width:0px] [--fd-toc-width:0px] data-[column-changed=true]:transition-[grid-template-columns]',
+        props.className,
+      )}
       data-sidebar-collapsed={collapsed}
       data-column-changed={isCollapseChanged}
       {...props}
@@ -33,10 +38,6 @@ export function Container(props: ComponentProps<'div'>) {
           ...props.style,
         } as object
       }
-      className={cn(
-        'grid overflow-x-clip min-h-(--fd-docs-height) [--fd-docs-height:100dvh] [--fd-header-height:0px] [--fd-toc-popover-height:0px] [--fd-sidebar-width:0px] [--fd-toc-width:0px] data-[column-changed=true]:transition-[grid-template-columns]',
-        props.className,
-      )}
     >
       {props.children}
     </div>

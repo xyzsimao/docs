@@ -1,19 +1,16 @@
-import { HomeLayout } from 'xyzdocs-ui/layouts/home'
-import { baseOptions, linkItems } from '@/lib/layout.shared'
-import {
-  NavbarMenu,
-  NavbarMenuContent,
-  NavbarMenuLink,
-  NavbarMenuTrigger,
-} from 'xyzdocs-ui/layouts/home/navbar';
+import { HomeLayout } from 'xyzdocs-ui/layouts/home';
+import { baseOptions, linkItems } from '@/components/layouts/shared';
+import { NavbarMenu, NavbarMenuContent, NavbarMenuLink, NavbarMenuTrigger } from 'xyzdocs-ui/layouts/home/navbar';
+import Link from 'xyzdocs-core/link';
+import Image from 'next/image';
+import Preview from '@/public/banner.png';
 import { Book, ComponentIcon, Pencil, PlusIcon, Server } from 'lucide-react';
 
-import Link from 'xyzdocs-core/link';
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
     <HomeLayout
-          {...baseOptions()}
-    links={[
+      {...baseOptions()}
+      links={[
         {
           type: 'menu',
           on: 'menu',
@@ -42,20 +39,23 @@ export default function Layout({ children }: LayoutProps<'/'>) {
               <NavbarMenuContent>
                 <NavbarMenuLink href="/docs" className="md:row-span-2">
                   <div className="-mx-3 -mt-3">
-            
+                    <Image
+                      src={Preview}
+                      alt="Preview"
+                      className="rounded-t-lg object-cover"
+                      style={{
+                        maskImage: 'linear-gradient(to bottom,white 60%,transparent)',
+                      }}
+                    />
                   </div>
                   <p className="font-medium">Getting Started</p>
-                  <p className="text-fd-muted-foreground text-sm">
-                    Learn to use xyzdocs on your docs site.
-                  </p>
+                  <p className="text-fd-muted-foreground text-sm">Learn to use Fumadocs on your docs site.</p>
                 </NavbarMenuLink>
 
                 <NavbarMenuLink href="/docs/ui/components" className="lg:col-start-2">
                   <ComponentIcon className="bg-fd-primary text-fd-primary-foreground p-1 mb-2 rounded-md" />
                   <p className="font-medium">Components</p>
-                  <p className="text-fd-muted-foreground text-sm">
-                    Add interactive experience to your docs.
-                  </p>
+                  <p className="text-fd-muted-foreground text-sm">Add interactive experience to your docs.</p>
                 </NavbarMenuLink>
 
                 <NavbarMenuLink href="/docs/openapi" className="lg:col-start-2">
@@ -69,20 +69,13 @@ export default function Layout({ children }: LayoutProps<'/'>) {
                 <NavbarMenuLink href="/docs/markdown" className="lg:col-start-3 lg:row-start-1">
                   <Pencil className="bg-fd-primary text-fd-primary-foreground p-1 mb-2 rounded-md" />
                   <p className="font-medium">Markdown</p>
-                  <p className="text-fd-muted-foreground text-sm">
-                    Learn the writing format/syntax of xyzdocs.
-                  </p>
+                  <p className="text-fd-muted-foreground text-sm">Learn the writing format/syntax of Fumadocs.</p>
                 </NavbarMenuLink>
 
-                <NavbarMenuLink
-                  href="/docs/manual-installation"
-                  className="lg:col-start-3 lg:row-start-2"
-                >
+                <NavbarMenuLink href="/docs/manual-installation" className="lg:col-start-3 lg:row-start-2">
                   <PlusIcon className="bg-fd-primary text-fd-primary-foreground p-1 mb-2 rounded-md" />
                   <p className="font-medium">Manual Installation</p>
-                  <p className="text-fd-muted-foreground text-sm">
-                    Setup xyzdocs for your existing Next.js app.
-                  </p>
+                  <p className="text-fd-muted-foreground text-sm">Setup Fumadocs for your existing Next.js app.</p>
                 </NavbarMenuLink>
               </NavbarMenuContent>
             </NavbarMenu>
@@ -90,8 +83,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
         },
         ...linkItems,
       ]}
-      className="dark:bg-neutral-950 dark:[--color-fd-background:var(--color-neutral-950)]
-       [--color-fd-primary:var(--color-brand)]"
+      className="dark:bg-neutral-950 dark:[--color-fd-background:var(--color-neutral-950)] [--color-fd-primary:var(--color-brand)]"
     >
       {children}
     </HomeLayout>

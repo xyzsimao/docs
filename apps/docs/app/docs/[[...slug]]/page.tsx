@@ -9,6 +9,8 @@ import { DocsBody, DocsPage, PageLastUpdate } from 'xyzdocs-ui/layouts/docs/page
 import { ReactNode } from 'react';
 import { findSiblings } from 'xyzdocs-core/page-tree';
 import { Card, Cards } from 'xyzdocs-ui/components/card';
+import { createMetadata, getPageImage } from '@/lib/metadata';
+import { Metadata } from 'next';
 
 function PreviewRenderer({ preview }: { preview: string }): ReactNode {
   if (preview && preview in Preview) {
@@ -88,6 +90,35 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   );
 }
 
+
+export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
+  const { slug = [] } = await props.params;
+  const page = source.getPage(slug);
+  if (!page)
+    return createMetadata({
+      title: 'Not Found',
+    });
+
+  const description = page.data.description ?? 'The library for building documentation sites';
+
+  const image = {
+    url: getPageImage(page).url,
+    width: 1200,
+    height: 630,
+  };
+
+  return createMetadata({
+    title: page.data.title,
+    description,
+    openGraph: {
+      url: `/docs/${page.slugs.join('/')}`,
+      images: [image],
+    },
+    twitter: {
+      images: [image],
+    },
+  });
+}
 
 export function generateStaticParams() {
   return source.generateParams();

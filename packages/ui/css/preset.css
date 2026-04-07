@@ -235,8 +235,7 @@
   }
 
   body {
-    background-color: var(--color-fd-background);
-    color: var(--color-fd-foreground);
+ 
   }
 
   :root,
