@@ -56,7 +56,7 @@ export function baseOptions(): BaseLayoutProps {
       title: (
         <>
           {logo}
-          <span className="font-medium in-[.uwu]:hidden">xyzdocs1</span>
+          <span className="font-medium in-[.uwu]:hidden">xyzdocs</span>
         </>
       ),
     },

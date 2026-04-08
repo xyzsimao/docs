@@ -119,14 +119,10 @@ export default function REPL({ container }: Props) {
   return (
     <ResizableChildContainer
       className={(isSm) =>
-        cn('bg-[#ffffff] flex flex-col dark:bg-[#161b22]', {
-          'rounded border border-[#cccccc] dark:border-[#30363d]':
-            false && !maximizeREPL,
+        cn('bg-[#ffffff] flex flex-col h-full min-h-screen w-full min-w-screen dark:bg-[#161b22]', {
+          'rounded border border-[#cccccc] dark:border-[#30363d]': false && !maximizeREPL,
         })
       }
-
-
-      
       parent={container}
       widthFraction={0.8}
       heightFraction={0.8}
@@ -136,7 +132,7 @@ export default function REPL({ container }: Props) {
     >
       {(isSm) => (
         <ResizableDualPanel
-          className={cn('flex-one', {
+          className={cn('flex-one h-full min-h-screen w-full min-w-screen', {
             'flex-col': !isSm,
             'flex-row': isSm,
           })}
@@ -145,9 +141,7 @@ export default function REPL({ container }: Props) {
           left={
             <Tabs
               activeTab={tabs.left.active}
-              onTabClick={(id) =>
-                dispatch({ type: 'ACTIVATE_TAB', group: 'left', id })
-              }
+              onTabClick={(id) => dispatch({ type: 'ACTIVATE_TAB', group: 'left', id })}
             >
               <TabList
                 className="border-b border-[#cccccc] dark:border-[#30363d]"
@@ -190,7 +184,7 @@ export default function REPL({ container }: Props) {
               <TabPanels>
                 <TabPanel id="html">
                   <CodeMirrorWrapper
-                    className="flex-one w-full"
+                    className="flex-one size-full"
                     theme={theme}
                     extensions={[cmHTML()]}
                     value={html}
@@ -199,7 +193,7 @@ export default function REPL({ container }: Props) {
                 </TabPanel>
                 <TabPanel id="css">
                   <CodeMirrorWrapper
-                    className="flex-one w-full"
+                    className="flex-one size-full"
                     theme={theme}
                     extensions={[cmCSS()]}
                     onChange={(value) => setCSS(value)}
@@ -207,7 +201,7 @@ export default function REPL({ container }: Props) {
                 </TabPanel>
                 <TabPanel id="js">
                   <CodeMirrorWrapper
-                    className="flex-one w-full"
+                    className="flex-one size-full"
                     theme={theme}
                     extensions={[cmJS()]}
                     onChange={(value) => setJS(value)}
@@ -219,17 +213,12 @@ export default function REPL({ container }: Props) {
           right={
             <Tabs
               activeTab={tabs.right.active}
-              onTabClick={(id) =>
-                dispatch({ type: 'ACTIVATE_TAB', group: 'right', id })
-              }
+              onTabClick={(id) => dispatch({ type: 'ACTIVATE_TAB', group: 'right', id })}
             >
               <TabList
-                className={cn(
-                  'border-b border-[#cccccc] dark:border-[#30363d]',
-                  {
-                    'border-t': !isSm,
-                  },
-                )}
+                className={cn('border-b border-[#cccccc] dark:border-[#30363d]', {
+                  'border-t': !isSm,
+                })}
               >
                 <Tab id="output" hidden={!tabs.right.items.output}>
                   Output
@@ -251,11 +240,7 @@ export default function REPL({ container }: Props) {
                   />
                 </TabPanel>
                 <TabPanel id="console">
-                  <Console
-                    className="flex-one"
-                    theme={theme}
-                    iframe={outputRef.current!?.element}
-                  />
+                  <Console className="flex-one" theme={theme} iframe={outputRef.current!?.element} />
                 </TabPanel>
               </TabPanels>
             </Tabs>
