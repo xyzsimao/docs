@@ -1,16 +1,24 @@
-
 import * as Preview from '@/components/preview';
 import { Feedback } from '@/components/feedback/client';
 import { onPageFeedbackAction } from '@/lib/github';
-import { source } from '@/lib/source'
+import { source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation';
 import { DocsBody, DocsPage, PageLastUpdate } from 'xyzdocs-ui/layouts/docs/page';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { findSiblings } from 'xyzdocs-core/page-tree';
 import { Card, Cards } from 'xyzdocs-ui/components/card';
 import { createMetadata, getPageImage } from '@/lib/metadata';
 import { Metadata } from 'next';
+import { Wrapper } from '@/components/preview/wrapper';
+
+import {
+  CodeBlockTab,
+  CodeBlockTabs,
+  CodeBlockTabsList,
+  CodeBlockTabsTrigger,
+  Pre,
+} from '@/components/codeblock/codeblock';
 
 function PreviewRenderer({ preview }: { preview: string }): ReactNode {
   if (preview && preview in Preview) {
@@ -40,7 +48,6 @@ function DocsCategory({ url }: { url: string }) {
     </Cards>
   );
 }
-
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -79,6 +86,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
               DocsCategory: ({ url }) => {
                 return <DocsCategory url={url ?? page.url} />;
               },
+              Wrapper,
             })}
           />
           {page.data.index ? <DocsCategory url={page.url} /> : null}
@@ -89,7 +97,6 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
     </DocsPage>
   );
 }
-
 
 export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
   const { slug = [] } = await props.params;

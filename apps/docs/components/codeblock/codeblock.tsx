@@ -10,11 +10,12 @@ import {
   useMemo,
   useRef,
 } from 'react';
-import { cn } from '@/utils/cn';
+ 
 import { useCopyButton } from '@/utils/use-copy-button';
 import { buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { mergeRefs } from '@/utils/merge-refs';
+import { cn } from '@/lib/cn';
 
 export interface CodeBlockProps extends ComponentProps<'figure'> {
   /**
@@ -40,7 +41,6 @@ export interface CodeBlockProps extends ComponentProps<'figure'> {
 
   viewportProps?: HTMLAttributes<HTMLElement>;
 
-  run?: boolean;
   /**
    * show line numbers
    */
@@ -73,7 +73,6 @@ export function CodeBlock({
   allowCopy = true,
   keepBackground = false,
   icon,
-  run,
   viewportProps = {},
   children,
   Actions = (props) => <div {...props} className={cn('empty:hidden', props.className)} />,
@@ -96,8 +95,6 @@ export function CodeBlock({
         props.className,
       )}
     >
-      {/* console.log('CodeBlock props run :', {run}); */}
-      {/* {run? 'data-run-able' : undefined} */}
       {title ? (
         <div className="flex text-fd-muted-foreground items-center gap-2 h-9.5 border-b px-4">
           {typeof icon === 'string' ? (
@@ -113,40 +110,13 @@ export function CodeBlock({
           <figcaption className="flex-1 truncate">{title}</figcaption>
           {Actions({
             className: '-me-2',
-            children: (
-              <div className="flex items-center gap-2">
-                {run && (
-                  <span className="text-xs text-green-500">
-                    <button
-                      className="rounded-md border border-zinc-200 bg-white px-2 py-1 text-[11px] font-semibold normal-case text-zinc-600 transition hover:border-sky-300 hover:text-sky-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:cursor-not-allowed disabled:border-zinc-200 disabled:text-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-sky-400/60 dark:hover:text-sky-400"
-                      type="button"
-                      aria-label="Run code"
-                    >
-                      Run
-                    </button>
-                  </span>
-                )}
-                {run && (
-                  <span className="text-xs text-green-500">
-                    <a
-                      className="rounded-md border border-zinc-200 bg-white px-2 py-1 text-[11px] font-semibold normal-case text-zinc-600 transition hover:border-emerald-300 hover:text-emerald-600 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-emerald-400 disabled:cursor-not-allowed disabled:border-zinc-200 disabled:text-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-emerald-400/60 dark:hover:text-emerald-400"
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="Open in playground"
-                    >
-                      Playground
-                    </a>
-                  </span>
-                )}
-                {allowCopy && <CopyButton containerRef={areaRef} />}
-              </div>
-            ),
-            // children: allowCopy && <CopyButton containerRef={areaRef} />,
+            children: allowCopy && <CopyButton containerRef={areaRef} />,
           })}
         </div>
       ) : (
         Actions({
-          className: 'absolute top-3 right-2 z-2 backdrop-blur-lg rounded-lg text-fd-muted-foreground',
+          className:
+            'absolute top-3 right-2 z-2 backdrop-blur-lg rounded-lg text-fd-muted-foreground',
           children: allowCopy && <CopyButton containerRef={areaRef} />,
         })
       )}
@@ -242,7 +212,10 @@ export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
 
 export function CodeBlockTabsList(props: ComponentProps<typeof TabsList>) {
   return (
-    <TabsList {...props} className={cn('flex flex-row px-2 overflow-x-auto text-fd-muted-foreground', props.className)}>
+    <TabsList
+      {...props}
+      className={cn('flex flex-row px-2 overflow-x-auto text-fd-muted-foreground', props.className)}
+    >
       {props.children}
     </TabsList>
   );

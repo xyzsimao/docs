@@ -140,6 +140,7 @@
 @source inline("bg-fd-secondary");
 @source inline("bg-fd-secondary/50");
 @source inline("bg-transparent");
+@source inline("bg-white");
 @source inline("bind");
 @source inline("binded");
 @source inline("black");
@@ -153,6 +154,7 @@
 @source inline("border-s");
 @source inline("border-t");
 @source inline("border-transparent");
+@source inline("border-zinc-200");
 @source inline("bottom");
 @source inline("bottom-0");
 @source inline("bottom-1.5");
@@ -231,6 +233,13 @@
 @source inline("dangerouslySetInnerHTML");
 @source inline("dark");
 @source inline("dark:bg-(--shiki-dark-bg)");
+@source inline("dark:bg-zinc-900");
+@source inline("dark:border-zinc-700");
+@source inline("dark:hover:border-emerald-400/60");
+@source inline("dark:hover:border-sky-400/60");
+@source inline("dark:hover:text-emerald-400");
+@source inline("dark:hover:text-sky-400");
+@source inline("dark:text-zinc-300");
 @source inline("data");
 @source inline("data-[active=true]:text-fd-primary");
 @source inline("data-[motion=from-end]:animate-fd-enterFromRight");
@@ -267,6 +276,7 @@
 @source inline("data-icon");
 @source inline("data-line-numbers");
 @source inline("data-line-numbers-start");
+@source inline("data-run-able");
 @source inline("data-search");
 @source inline("data-search-full");
 @source inline("data-state");
@@ -300,8 +310,11 @@
 @source inline("dir");
 @source inline("disableTransitionOnChange");
 @source inline("disabled");
+@source inline("disabled:border-zinc-200");
+@source inline("disabled:cursor-not-allowed");
 @source inline("disabled:opacity-50");
 @source inline("disabled:pointer-events-none");
+@source inline("disabled:text-zinc-400");
 @source inline("display");
 @source inline("displayName");
 @source inline("displayed");
@@ -364,7 +377,11 @@
 @source inline("flex-row");
 @source inline("flex-wrap");
 @source inline("flexDirection");
+@source inline("focus-visible:outline");
+@source inline("focus-visible:outline-emerald-400");
 @source inline("focus-visible:outline-none");
+@source inline("focus-visible:outline-offset-2");
+@source inline("focus-visible:outline-sky-400");
 @source inline("focus-visible:ring-2");
 @source inline("focus-visible:ring-fd-ring");
 @source inline("focus-visible:ring-inset");
@@ -372,6 +389,7 @@
 @source inline("folders");
 @source inline("font-medium");
 @source inline("font-mono");
+@source inline("font-semibold");
 @source inline("fontSize");
 @source inline("fontWeight");
 @source inline("footer");
@@ -445,7 +463,11 @@
 @source inline("hover:bg-fd-accent");
 @source inline("hover:bg-fd-accent/80");
 @source inline("hover:bg-fd-primary/80");
+@source inline("hover:border-emerald-300");
+@source inline("hover:border-sky-300");
+@source inline("hover:text-emerald-600");
 @source inline("hover:text-fd-accent-foreground");
+@source inline("hover:text-sky-600");
 @source inline("hovered");
 @source inline("href");
 @source inline("html");
@@ -631,6 +653,7 @@
 @source inline("noopener");
 @source inline("noreferrer");
 @source inline("normal");
+@source inline("normal-case");
 @source inline("normalize");
 @source inline("not");
 @source inline("not-last:mb-2");
@@ -720,6 +743,7 @@
 @source inline("persistent");
 @source inline("placeholder");
 @source inline("placeholder:text-fd-muted-foreground");
+@source inline("playground");
 @source inline("please");
 @source inline("pointerType");
 @source inline("possible");
@@ -818,6 +842,7 @@
 @source inline("row");
 @source inline("rtl");
 @source inline("rtl:rotate-180");
+@source inline("run");
 @source inline("s");
 @source inline("scale");
 @source inline("scroll");
@@ -935,6 +960,7 @@
 @source inline("text-(--callout-color)");
 @source inline("text-[0.8125rem]");
 @source inline("text-[0.9375rem]");
+@source inline("text-[11px]");
 @source inline("text-center");
 @source inline("text-fd-accent-foreground");
 @source inline("text-fd-card");
@@ -948,11 +974,13 @@
 @source inline("text-fd-primary-foreground");
 @source inline("text-fd-primary/50");
 @source inline("text-fd-secondary-foreground");
+@source inline("text-green-500");
 @source inline("text-lg");
 @source inline("text-nowrap");
 @source inline("text-sm");
 @source inline("text-start");
 @source inline("text-xs");
+@source inline("text-zinc-600");
 @source inline("text/plain");
 @source inline("textAnchor");
 @source inline("textContent");
@@ -985,6 +1013,7 @@
 @source inline("touch");
 @source inline("trailing");
 @source inline("transform");
+@source inline("transition");
 @source inline("transition-[clip-path]");
 @source inline("transition-[height]");
 @source inline("transition-[width,height]");

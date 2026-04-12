@@ -24,11 +24,23 @@ var docs = defineDocs({
     })
   }
 });
+function parseMetaString(str = "") {
+  return Object.fromEntries(
+    str.split(" ").reduce((acc, cur) => {
+      const matched = cur.match(/(.+)?=("(.+)"|'(.+)')$/);
+      if (matched === null) return acc;
+      const key = matched[1];
+      const value = matched[3] || matched[4] || true;
+      acc = [...acc, [key, value]];
+      return acc;
+    }, [])
+  );
+}
 var source_config_default = defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
     remarkPlugins: [remarkMath, remarkMdxMermaid, remarkSteps],
-    // Place it at first, it should be executed before the syntax highlighter
+    //   // Place it at first, it should be executed before the syntax highlighter
     rehypePlugins: (v) => [rehypeKatex, ...v],
     rehypeCodeOptions: {
       langs: ["ts", "js", "html", "tsx", "mdx"],
@@ -38,6 +50,17 @@ var source_config_default = defineConfig({
         dark: "one-dark-pro"
       },
       transformers: [
+        {
+          name: "transformer:test",
+          preprocess() {
+            if (!this.options.meta) return;
+            const rawMeta = this.options.meta?.__raw;
+            if (!rawMeta) return;
+            const meta = parseMetaString(rawMeta);
+            Object.assign(this.options.meta, meta);
+            console.log("this.options.meta:", this.options.meta);
+          }
+        },
         ...rehypeCodeDefaultOptions.transformers ?? []
         // transformerTwoslash({
         //   typesCache: createFileSystemTypesCache(),

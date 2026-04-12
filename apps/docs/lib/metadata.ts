@@ -7,7 +7,7 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: 'https://fumadocs.dev',
+      url: 'https://xyzdocs.dev',
       images: '/banner.png',
       siteName: 'Fumadocs',
       ...override.openGraph,
@@ -25,7 +25,7 @@ export function createMetadata(override: Metadata): Metadata {
         'application/rss+xml': [
           {
             title: 'Fumadocs Blog',
-            url: 'https://fumadocs.dev/blog/rss.xml',
+            url: 'https://xyzdocs.dev/blog/rss.xml',
           },
         ],
       },
