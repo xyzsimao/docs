@@ -1,6 +1,7 @@
 import { CodeBlock, type CodeBlockProps, Pre } from './codeblock';
-import { highlight, type HighlightOptions } from 'xyzdocs-core/highlight';
+import { highlight, type HighlightOptions } from 'xyzdocs-core/highlight/index';
 import { cn } from '@/utils/cn';
+import { useState } from 'react';
 
 export type ServerCodeBlockProps = HighlightOptions & {
   code: string;
@@ -19,11 +20,7 @@ export async function ServerCodeBlock({ code, codeblock, ...options }: ServerCod
     ...options,
     components: {
       pre: (props) => (
-        <CodeBlock
-          {...props}
-          {...codeblock}
-          className={cn('my-0', props.className, codeblock?.className)}
-        >
+        <CodeBlock {...props} {...codeblock} className={cn('my-0', props.className, codeblock?.className)}>
           <Pre>{props.children}</Pre>
         </CodeBlock>
       ),

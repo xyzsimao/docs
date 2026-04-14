@@ -72,6 +72,7 @@
 @source inline("a");
 @source inline("about");
 @source inline("absolute");
+@source inline("absolutePath");
 @source inline("action");
 @source inline("active");
 @source inline("add");
@@ -403,6 +404,7 @@
 @source inline("framework");
 @source inline("free");
 @source inline("from");
+@source inline("fs");
 @source inline("full");
 @source inline("function");
 @source inline("functionality");
@@ -762,6 +764,7 @@
 @source inline("primaryColor");
 @source inline("primaryTextColor");
 @source inline("promise");
+@source inline("promises");
 @source inline("prop");
 @source inline("props");
 @source inline("prose");
@@ -810,6 +813,7 @@
 @source inline("registering");
 @source inline("rel");
 @source inline("relative");
+@source inline("relativePath");
 @source inline("remove");
 @source inline("render");
 @source inline("renderHighlights");
@@ -1079,6 +1083,7 @@
 @source inline("users");
 @source inline("using");
 @source inline("usually");
+@source inline("utf-8");
 @source inline("v17");
 @source inline("value");
 @source inline("valueToIdMap");
@@ -1127,7 +1132,6 @@
 @source inline("xyzdocs");
 @source inline("xyzdocs-core/breadcrumb");
 @source inline("xyzdocs-core/framework");
-@source inline("xyzdocs-core/highlight");
 @source inline("xyzdocs-core/i18n");
 @source inline("xyzdocs-core/link");
 @source inline("xyzdocs-core/page-tree");

@@ -20,7 +20,7 @@ export default defineConfig({
     'src/utils/use-media-query.ts',
     // 'src/i18n/*.ts',
     'src/highlight/{index,config,client}.{ts,tsx}',
-    'src/highlight/core/*',
+    'src/highlight/**/*',
     'src/mdx-plugins/{index,codeblock-utils}.ts',
     'src/mdx-plugins/remark-*.ts',
     'src/mdx-plugins/rehype-*.ts',

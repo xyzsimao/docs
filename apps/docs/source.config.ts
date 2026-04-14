@@ -8,6 +8,7 @@ import { transformerTwoslash } from 'xyzdocs-twoslash';
 import { rehypeCodeDefaultOptions } from 'xyzdocs-core/mdx-plugins';
 import { ElementContent } from 'hast';
 import { ShikiTransformer } from 'shiki';
+import codeImport from 'remark-code-import';
 
 export const docs = defineDocs({
   dir: 'content/docs',
@@ -44,7 +45,7 @@ export const docs = defineDocs({
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
-    remarkPlugins: [remarkMath, remarkMdxMermaid, remarkSteps],
+    remarkPlugins: [remarkMath, remarkMdxMermaid, remarkSteps, codeImport],
     //   // Place it at first, it should be executed before the syntax highlighter
     rehypePlugins: (v) => [rehypeKatex, ...v],
     rehypeCodeOptions: {
@@ -63,7 +64,7 @@ export default defineConfig({
             if (!rawMeta) return;
             const meta = parseMetaString(rawMeta);
             Object.assign(this.options.meta, meta);
-            console.log('this.options.meta:', this.options.meta);
+            // console.log('this.options.meta:', this.options.meta);
             // const rawMeta = meta?.__raw;
             // // console.log('transformer meta:', meta);
             // // console.log(rawMeta);

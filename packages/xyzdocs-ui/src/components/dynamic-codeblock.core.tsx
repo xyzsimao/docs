@@ -30,23 +30,13 @@ function DefaultPre(props: ComponentProps<'pre'>) {
   const extraProps = use(PropsContext);
 
   return (
-    <CodeBlock
-      {...props}
-      {...extraProps}
-      className={cn('my-0', props.className, extraProps?.className)}
-    >
+    <CodeBlock {...props} {...extraProps} className={cn('my-0', props.className, extraProps?.className)}>
       <Pre>{props.children}</Pre>
     </CodeBlock>
   );
 }
 
-export function DynamicCodeBlock({
-  lang,
-  code,
-  codeblock,
-  options,
-  wrapInSuspense = true,
-}: DynamicCodeblockProps) {
+export function DynamicCodeBlock({ lang, code, codeblock, options, wrapInSuspense = true }: DynamicCodeblockProps) {
   const id = useId();
   const shikiOptions: UseShikiOptions = {
     lang,
@@ -62,13 +52,7 @@ export function DynamicCodeBlock({
   return <PropsContext value={codeblock}>{node}</PropsContext>;
 }
 
-function Placeholder({
-  code,
-  components = {},
-}: {
-  code: string;
-  components: UseShikiOptions['components'];
-}) {
+function Placeholder({ code, components = {} }: { code: string; components: UseShikiOptions['components'] }) {
   const { pre: Pre = 'pre', code: Code = 'code' } = components as Record<string, FC>;
 
   return (

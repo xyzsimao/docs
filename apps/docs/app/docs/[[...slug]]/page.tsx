@@ -19,6 +19,7 @@ import {
   CodeBlockTabsTrigger,
   Pre,
 } from '@/components/codeblock/codeblock';
+import { CodeBlock } from '@/components/code-block';
 
 function PreviewRenderer({ preview }: { preview: string }): ReactNode {
   if (preview && preview in Preview) {
@@ -87,6 +88,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
                 return <DocsCategory url={url ?? page.url} />;
               },
               Wrapper,
+              // pre: CodeBlock,
             })}
           />
           {page.data.index ? <DocsCategory url={page.url} /> : null}
