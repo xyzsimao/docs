@@ -3,12 +3,13 @@ import { defineDocs, metaSchema, frontmatterSchema, defineConfig } from 'xyzdocs
 import lastModified from 'xyzdocs-mdx/plugins/last-modified';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
-import { remarkMdxMermaid, remarkSteps } from 'xyzdocs-core/mdx-plugins';
+import { remarkDirectiveAdmonition, remarkMdxFiles, remarkMdxMermaid, remarkSteps } from 'xyzdocs-core/mdx-plugins';
 import { transformerTwoslash } from 'xyzdocs-twoslash';
 import { rehypeCodeDefaultOptions } from 'xyzdocs-core/mdx-plugins';
 import { ElementContent } from 'hast';
 import { ShikiTransformer } from 'shiki';
 import codeImport from 'remark-code-import';
+import remarkDirective from 'remark-directive';
 
 export const docs = defineDocs({
   dir: 'content/docs',
@@ -45,7 +46,15 @@ export const docs = defineDocs({
 export default defineConfig({
   plugins: [lastModified()],
   mdxOptions: {
-    remarkPlugins: [remarkMath, remarkMdxMermaid, remarkSteps, codeImport],
+    remarkPlugins: [
+      remarkMdxFiles,
+      remarkDirective,
+      remarkDirectiveAdmonition,
+      remarkMath,
+      remarkMdxMermaid,
+      remarkSteps,
+      codeImport,
+    ],
     //   // Place it at first, it should be executed before the syntax highlighter
     rehypePlugins: (v) => [rehypeKatex, ...v],
     rehypeCodeOptions: {

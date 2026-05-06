@@ -61,7 +61,7 @@ const TabsContext = createContext<{
 
 export function Pre(props: ComponentProps<'pre'>) {
   return (
-    <pre {...props} className={cn('min-w-full w-max *:flex *:flex-col', props.className)}>
+    <pre {...props} className={cn('min-w-full w-max *:flex *:flex-col font-normal', props.className)}>
       {props.children}
     </pre>
   );

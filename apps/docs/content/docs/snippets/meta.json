@@ -1,0 +1,7 @@
+{
+  "title": "Snippets",
+  "description": "Useful code snippets",
+  "icon": "Cuboid",
+  "root": true,
+  "pages": ["index",  "..."]
+}

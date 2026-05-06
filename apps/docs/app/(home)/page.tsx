@@ -34,6 +34,8 @@ const config = {
         }}
         src="/code_snippets/next.config.js"
       />
+
+      {/* <img src="/timeline.svg" alt="Picture of the author" /> */}
     </>
   );
 }

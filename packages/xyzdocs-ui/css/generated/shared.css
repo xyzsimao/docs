@@ -390,6 +390,7 @@
 @source inline("folders");
 @source inline("font-medium");
 @source inline("font-mono");
+@source inline("font-normal");
 @source inline("font-semibold");
 @source inline("fontSize");
 @source inline("fontWeight");

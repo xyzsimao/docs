@@ -9,7 +9,9 @@ export function getSection(path: string | undefined) {
       cli: 'cli',
       headless: 'headless',
       miscellaneous: 'miscellaneous',
+      javascript: 'javascript',
+      snippets: 'snippets',
       // design-system: 'designsystem',
     }[dir] ?? 'framework'
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import * as Preview from '@/components/preview';
 import { Feedback } from '@/components/feedback/client';
 import { onPageFeedbackAction } from '@/lib/github';
-import { source } from '@/lib/source';
+import { getLLMText, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { notFound } from 'next/navigation';
 import { DocsBody, DocsPage, PageLastUpdate } from 'xyzdocs-ui/layouts/docs/page';
@@ -20,6 +20,8 @@ import {
   Pre,
 } from '@/components/codeblock/codeblock';
 import { CodeBlock } from '@/components/code-block';
+import { CopyPage } from '@/components/copy-page';
+import { EditSource } from '@/components/edit-source';
 
 function PreviewRenderer({ preview }: { preview: string }): ReactNode {
   if (preview && preview in Preview) {
@@ -58,6 +60,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
     return notFound();
   }
   const { body: Mdx, toc, lastModified } = await page.data;
+  const markdown = await getLLMText(page);
   // console.log('page.data:', JSON.stringify(page.data, null, 2));
   // const { body: Mdx, toc, lastModified } = await page.data.load();
   // console.log('page.url:', page.url);
@@ -72,6 +75,9 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           <div className="my-3 space-y-3">
             {/* <AskAI href={page.url} />
             <OpenInChat href={page.url} /> */}
+
+            <CopyPage text={markdown} />
+            <EditSource path={page.path} />
           </div>
         ),
       }}

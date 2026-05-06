@@ -171,6 +171,14 @@
   --color-fd-primary: var(--mdx-color);
 }
 
+.snippets {
+  --color-fd-primary: var(--snippets-color);
+}
+
+.javascript {
+  --color-fd-primary: var(--javascript-color);
+}
+
 .miscellaneous {
   --color-fd-primary: var(--miscellaneous-color);
 }
@@ -185,6 +193,9 @@
   --cli-color: var(--color-pink-500);
   --mdx-color: var(--color-yellow-500);
   --miscellaneous-color: var(--color-purple-500);
+
+  --javascript-color: var(--color-blue-500);
+  --snippets-color: var(--color-lime-500);
   /* --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
