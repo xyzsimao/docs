@@ -34,10 +34,10 @@ export default function ResizableDualPanel({
           flexBasis: fractionStringifier(newSliderPositionFraction),
         }}
       >
-        {cloneElement(leftPanel, {
+        {/* {cloneElement(leftPanel, {
           ...leftPanel.props,
           className: cn(leftPanel.props.className, 'flex-one'),
-        })}
+        })} */}
       </div>
 
       <span
@@ -58,10 +58,10 @@ export default function ResizableDualPanel({
           flexBasis: fractionStringifier(1 - newSliderPositionFraction),
         }}
       >
-        {cloneElement(rightPanel, {
+        {/* {cloneElement(rightPanel, {
           ...rightPanel.props,
           className: cn(rightPanel.props.className, 'flex-one'),
-        })}
+        })} */}
       </div>
     </div>
   );

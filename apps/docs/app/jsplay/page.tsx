@@ -1,21 +1,21 @@
 "use client"
-import REPL, { REPLContext } from "@/components/jsplay/components/repl";
+// import REPL, { REPLContext } from "@/components/jsplay/components/repl";
 import { cn } from "@/lib/cn";
 import useTheme from "@/lib/hooks/useTheme";
 import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import Header from "./header";
+// import Header from "./header";
 
  
 
 export default function Page() {
-   const [theme, setTheme] = useTheme('dark');
+  const [theme, setTheme] = useTheme('dark');
 
-  const [playground, setPlayground] = useLocalStorageState<
-    REPLContext['playground']
-  >('playground', {
-    defaultValue: 'js',
-  });
+  // const [playground, setPlayground] = useLocalStorageState<
+  //   REPLContext['playground']
+  // >('playground', {
+  //   defaultValue: 'js',
+  // });
   const [maximizeREPL, setMaximizeREPL] = useLocalStorageState('maximized', {
     defaultValue: false,
   });
@@ -23,9 +23,7 @@ export default function Page() {
     defaultValue: true,
   });
 
-  const [replContainer, setREPLContainer] = useState<HTMLDivElement | null>(
-    null,
-  );
+  const [replContainer, setREPLContainer] = useState<HTMLDivElement | null>(null);
 
   return (
     <div
@@ -34,7 +32,8 @@ export default function Page() {
         'dark:bg-[linear-gradient(to_top,#0077c0_0%,#000000_100%)]',
       )}
     >
-      <REPLContext.Provider
+      Page
+      {/* <REPLContext.Provider
         value={{
           theme,
           setTheme,
@@ -70,7 +69,7 @@ export default function Page() {
             <REPL container={replContainer} />
           </div>
         </div>
-      </REPLContext.Provider>
+      </REPLContext.Provider> */}
     </div>
   );
 }

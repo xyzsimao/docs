@@ -53,7 +53,7 @@ export default defineConfig({
       remarkMath,
       remarkMdxMermaid,
       remarkSteps,
-      codeImport,
+      codeImport as any,
     ],
     //   // Place it at first, it should be executed before the syntax highlighter
     rehypePlugins: (v) => [rehypeKatex, ...v],

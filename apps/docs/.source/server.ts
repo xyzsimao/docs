@@ -1,12 +1,12 @@
 // @ts-nocheck
 import * as __fd_glob_36 from "../content/docs/javascript/javascript.info/getting-started/manuals-specifications.mdx?collection=docs"
 import * as __fd_glob_35 from "../content/docs/javascript/javascript.info/getting-started/intro.mdx?collection=docs"
-import * as __fd_glob_34 from "../content/docs/ui/components/steps.mdx?collection=docs"
-import * as __fd_glob_33 from "../content/docs/ui/components/index.mdx?collection=docs"
-import * as __fd_glob_32 from "../content/docs/ui/components/codeblock.mdx?collection=docs"
-import * as __fd_glob_31 from "../content/docs/ui/components/accordion.mdx?collection=docs"
-import * as __fd_glob_30 from "../content/docs/ui/layouts/index.mdx?collection=docs"
-import * as __fd_glob_29 from "../content/docs/ui/layouts/docs.mdx?collection=docs"
+import * as __fd_glob_34 from "../content/docs/ui/layouts/index.mdx?collection=docs"
+import * as __fd_glob_33 from "../content/docs/ui/layouts/docs.mdx?collection=docs"
+import * as __fd_glob_32 from "../content/docs/ui/components/steps.mdx?collection=docs"
+import * as __fd_glob_31 from "../content/docs/ui/components/index.mdx?collection=docs"
+import * as __fd_glob_30 from "../content/docs/ui/components/codeblock.mdx?collection=docs"
+import * as __fd_glob_29 from "../content/docs/ui/components/accordion.mdx?collection=docs"
 import * as __fd_glob_28 from "../content/docs/snippets/shell/index.mdx?collection=docs"
 import * as __fd_glob_27 from "../content/docs/snippets/js/index.mdx?collection=docs"
 import * as __fd_glob_26 from "../content/docs/headless/mdx/rehype-code.mdx?collection=docs"
@@ -54,4 +54,4 @@ const create = server<typeof Config, import("xyzdocs-mdx/runtime/types").Interna
   }
 }>({"doc":{"passthroughs":["extractedReferences","lastModified"]}});
 
-export const docs = await create.docs("docs", "content/docs", {"meta.json": __fd_glob_0, "(framework)/meta.json": __fd_glob_1, "cli/meta.json": __fd_glob_2, "headless/meta.json": __fd_glob_3, "javascript/meta.json": __fd_glob_4, "miscellaneous/meta.json": __fd_glob_5, "snippets/meta.json": __fd_glob_6, "ui/meta.json": __fd_glob_7, }, {"test.mdx": __fd_glob_8, "(framework)/index.mdx": __fd_glob_9, "cli/create-fumadocs-app.mdx": __fd_glob_10, "cli/index.mdx": __fd_glob_11, "cli/test.mdx": __fd_glob_12, "headless/index.mdx": __fd_glob_13, "javascript/JavaScript问题集.mdx": __fd_glob_14, "javascript/airbnb_style.mdx": __fd_glob_15, "javascript/index.mdx": __fd_glob_16, "miscellaneous/collections.mdx": __fd_glob_17, "miscellaneous/markdown.mdx": __fd_glob_18, "miscellaneous/math.mdx": __fd_glob_19, "miscellaneous/md_doc.mdx": __fd_glob_20, "miscellaneous/mermaid.mdx": __fd_glob_21, "miscellaneous/toc.mdx": __fd_glob_22, "miscellaneous/twoslash.mdx": __fd_glob_23, "snippets/index.mdx": __fd_glob_24, "ui/index.mdx": __fd_glob_25, "headless/mdx/rehype-code.mdx": __fd_glob_26, "snippets/js/index.mdx": __fd_glob_27, "snippets/shell/index.mdx": __fd_glob_28, "ui/layouts/docs.mdx": __fd_glob_29, "ui/layouts/index.mdx": __fd_glob_30, "ui/components/accordion.mdx": __fd_glob_31, "ui/components/codeblock.mdx": __fd_glob_32, "ui/components/index.mdx": __fd_glob_33, "ui/components/steps.mdx": __fd_glob_34, "javascript/javascript.info/getting-started/intro.mdx": __fd_glob_35, "javascript/javascript.info/getting-started/manuals-specifications.mdx": __fd_glob_36, });
+export const docs = await create.docs("docs", "content/docs", {"meta.json": __fd_glob_0, "(framework)/meta.json": __fd_glob_1, "cli/meta.json": __fd_glob_2, "headless/meta.json": __fd_glob_3, "javascript/meta.json": __fd_glob_4, "miscellaneous/meta.json": __fd_glob_5, "snippets/meta.json": __fd_glob_6, "ui/meta.json": __fd_glob_7, }, {"test.mdx": __fd_glob_8, "(framework)/index.mdx": __fd_glob_9, "cli/create-fumadocs-app.mdx": __fd_glob_10, "cli/index.mdx": __fd_glob_11, "cli/test.mdx": __fd_glob_12, "headless/index.mdx": __fd_glob_13, "javascript/JavaScript问题集.mdx": __fd_glob_14, "javascript/airbnb_style.mdx": __fd_glob_15, "javascript/index.mdx": __fd_glob_16, "miscellaneous/collections.mdx": __fd_glob_17, "miscellaneous/markdown.mdx": __fd_glob_18, "miscellaneous/math.mdx": __fd_glob_19, "miscellaneous/md_doc.mdx": __fd_glob_20, "miscellaneous/mermaid.mdx": __fd_glob_21, "miscellaneous/toc.mdx": __fd_glob_22, "miscellaneous/twoslash.mdx": __fd_glob_23, "snippets/index.mdx": __fd_glob_24, "ui/index.mdx": __fd_glob_25, "headless/mdx/rehype-code.mdx": __fd_glob_26, "snippets/js/index.mdx": __fd_glob_27, "snippets/shell/index.mdx": __fd_glob_28, "ui/components/accordion.mdx": __fd_glob_29, "ui/components/codeblock.mdx": __fd_glob_30, "ui/components/index.mdx": __fd_glob_31, "ui/components/steps.mdx": __fd_glob_32, "ui/layouts/docs.mdx": __fd_glob_33, "ui/layouts/index.mdx": __fd_glob_34, "javascript/javascript.info/getting-started/intro.mdx": __fd_glob_35, "javascript/javascript.info/getting-started/manuals-specifications.mdx": __fd_glob_36, });
